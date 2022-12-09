@@ -8,7 +8,11 @@ import {
 import { FontWeights } from "./Typography.types";
 
 export const styles = StyleSheet.create({
-  h1: {},
+  h1: {
+    fontWeight: FontWeights.fontWeightBold,
+    fontSize: 40,
+    lineHeight: 50,
+  },
   h2: {},
   h3: {},
   h4: {},

@@ -6,7 +6,7 @@ import { TypographyColors, TypographyVariants } from "./Typography.types";
 type TypographyProps = {
   variant?: TypographyVariants;
   color?: TypographyColors;
-  style?: TextStyle;
+  style?: TextStyle | TextStyle[];
 };
 
 export const Typography = ({

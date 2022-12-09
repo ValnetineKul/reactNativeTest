@@ -7,12 +7,24 @@ type CardProps = {
   variant?: CardVariants;
   color?: string;
   style?: ViewStyle;
+  shadowBox?: boolean;
 };
 
 export const Card = ({
   variant = "default",
   children,
+  shadowBox,
   style,
 }: PropsWithChildren<CardProps>) => {
-  return <View style={[styles[variant], style]}>{children}</View>;
+  return (
+    <View
+      style={[
+        styles[variant],
+        style,
+        { ...((shadowBox || variant === "horizontalFull") && styles.shadowBox) },
+      ]}
+    >
+      {children}
+    </View>
+  );
 };

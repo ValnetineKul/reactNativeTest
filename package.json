@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-navigation/drawer": "^6.5.3",
     "@react-navigation/native": "^6.0.16",
+    "@react-navigation/native-stack": "^6.9.4",
     "axios": "^1.2.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
@@ -32,6 +33,7 @@
     "@types/react": "^18.0.21",
     "@types/react-native": "^0.70.6",
     "@types/react-native-snap-carousel": "^3.8.5",
+    "@types/react-navigation": "^3.4.0",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",

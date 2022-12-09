@@ -9,6 +9,5 @@ export const BaseSvgIcon = ({
 }: PropsWithChildren<BaseSvgProps>) => (
   <Svg width={width} height={height}>
     {children}
-    {/* <Path d="M0 0h48v1H0z" fill="#063855" fillRule="evenodd" /> */}
   </Svg>
 );
