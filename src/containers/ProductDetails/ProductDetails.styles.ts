@@ -12,4 +12,10 @@ export const styles = StyleSheet.create({
     paddingTop: 32,
     paddingBottom: 32,
   },
+  addToCartButton: {
+    width: Dimensions.get("window").width - 32,
+    position: "absolute",
+    bottom: 16,
+    left: 16,
+  },
 });

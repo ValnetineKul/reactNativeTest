@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: 34,
-    paddingLeft: 34,
+    paddingLeft: 40,
   },
   startAdorment: {
     position: "absolute",
     left: 10,
-    top: 10,
+    top: 6,
   },
 });

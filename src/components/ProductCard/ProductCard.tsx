@@ -26,7 +26,7 @@ export const ProductCard = ({
   style,
 }: PropsWithChildren<CardProps>) => {
   return (
-    <Card variant={CardVariants.default} style={style}>
+    <Card variant={CardVariants.default} shadowBox style={style}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}

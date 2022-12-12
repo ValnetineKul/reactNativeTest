@@ -3,7 +3,7 @@ import { View, ViewStyle } from "react-native";
 
 type WrapperContainerProps = {
   padding?: string | number;
-  style?: ViewStyle;
+  style?: ViewStyle | ViewStyle[];
 };
 
 export const WrapperContainer = ({

@@ -1,15 +1,7 @@
 import React, { type PropsWithChildren } from "react";
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from "react-native";
+import { SafeAreaView, StatusBar, useColorScheme } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { COLOR_TEXT_WHITE, Header } from "../../components";
-import { ProductDetails } from "../ProductDetails";
-import { Products } from "../Products";
+import { Routes } from "../Routes";
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const isDarkMode = useColorScheme() === "dark";
@@ -26,20 +18,8 @@ export const Layout = ({ children }: PropsWithChildren) => {
         barStyle={isDarkMode ? "light-content" : "dark-content"}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <View
-        style={{
-          backgroundColor: COLOR_TEXT_WHITE,
-          flexGrow: 1,
-        }}
-      >
-        <ScrollView stickyHeaderHiddenOnScroll>
-          <Header />
-        </ScrollView>
-        {/* <Products /> */}
-        <ProductDetails />
-
-        {children}
-      </View>
+      <Routes />
+      {children}
     </SafeAreaView>
   );
 };

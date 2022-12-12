@@ -3,16 +3,18 @@ import { Image, RefreshControl, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { baseApi } from "../../api";
 import {
-  AddToCartButton,
+  Button,
   Carousel,
   COLOR_LIGHT_GRAY,
   Divider,
   FontWeights,
+  Header,
   Typography,
   WrapperContainer,
 } from "../../components";
 import { Price } from "../../components/ProductCard/components";
-import { Nullable, Product } from "../../types";
+import { modalRoutes } from "../../constants";
+import { NavigationProp, Nullable, Product } from "../../types";
 import { styles } from "./ProductDetails.styles";
 
 const mockPicks = [
@@ -25,7 +27,9 @@ const mockPicks = [
 
 const mockId = 96;
 
-export const ProductDetails = ({}: PropsWithChildren) => {
+export const ProductDetails = ({
+  navigation,
+}: PropsWithChildren & NavigationProp) => {
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState<Nullable<Product>>(null);
 
@@ -34,6 +38,10 @@ export const ProductDetails = ({}: PropsWithChildren) => {
     const { data } = await baseApi.getProductDetails({ id: mockId });
     setProduct(data.data);
     setIsLoading(false);
+  };
+
+  const handleAddToCartPress = () => {
+    navigation?.navigate(modalRoutes.login);
   };
 
   useEffect(() => {
@@ -46,6 +54,9 @@ export const ProductDetails = ({}: PropsWithChildren) => {
 
   return (
     <>
+      <ScrollView stickyHeaderHiddenOnScroll>
+        <Header type="product" navigation={navigation} />
+      </ScrollView>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={getProductDetails} />
@@ -95,7 +106,11 @@ export const ProductDetails = ({}: PropsWithChildren) => {
           <Typography>{product?.attributes.description}</Typography>
         </WrapperContainer>
       </ScrollView>
-      <AddToCartButton />
+      <Button
+        title="Add to Cart"
+        style={[styles.addToCartButton]}
+        onPress={handleAddToCartPress}
+      />
     </>
   );
 };

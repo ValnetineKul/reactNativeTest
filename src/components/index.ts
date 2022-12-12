@@ -7,4 +7,5 @@ export * from "./Input";
 export * from "../theme";
 export * from "./Carousel";
 export * from "./Divider";
-export * from "./AddToCartButton";
+export * from "./Button";
+export * from "./Modal";

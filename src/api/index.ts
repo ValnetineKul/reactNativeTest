@@ -5,7 +5,7 @@ import {
   ProductRes,
   ProductsRes,
 } from "../types";
-import { URL } from "./URLs";
+import { URL } from "../constants";
 
 const client: AxiosInstance = axios.create({
   baseURL: "https://demo.spreecommerce.org/api/v2/storefront",

@@ -11,6 +11,13 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 4 },
     height: 55,
     paddingHorizontal: 16,
-    zIndex: 100,
+    flexGrow: 0,
+  },
+  iconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  margin: {
+    marginRight: 24,
   },
 });
