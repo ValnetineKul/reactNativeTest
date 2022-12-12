@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import { TouchableOpacity } from "react-native";
-import { WrapperContainer, Typography, Divider } from "../../../../components";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Typography, Divider } from "../../../../components";
 import { drawerContent } from "./Drawer.helpers";
 import { styles } from "./Drawer.styles";
 
 export const DrawerMenu = () => {
   return (
-    <WrapperContainer>
+    <SafeAreaView style={[styles.mainContainer]}>
       <Typography variant="h1" color="blue" style={styles.title}>
         Ecommerce Store
       </Typography>
@@ -36,6 +37,6 @@ export const DrawerMenu = () => {
           </Fragment>
         );
       })}
-    </WrapperContainer>
+    </SafeAreaView>
   );
 };

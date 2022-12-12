@@ -11,9 +11,14 @@
 import React from "react";
 
 import { Layout } from "./src/containers";
+import { AuthProvider } from "./src/context";
 
 const App = () => {
-  return <Layout />;
+  return (
+    <AuthProvider>
+      <Layout />
+    </AuthProvider>
+  );
 };
 
 export default App;

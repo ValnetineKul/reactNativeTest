@@ -1,7 +1,5 @@
 import React, { type PropsWithChildren } from "react";
 import { View, ViewStyle } from "react-native";
-import { COLOR_MODAL_BACKGROUND_GRAY } from "../../theme";
-import { flexHelper } from "../../utils";
 import { Typography } from "../Typography";
 import { styles } from "./Modal.styles";
 
@@ -9,6 +7,7 @@ type ModalProps = {
   icon?: JSX.Element;
   title?: string;
   style?: ViewStyle | ViewStyle[];
+  backgroundColor?: "gray" | "white";
 };
 
 export const Modal = ({
@@ -16,16 +15,17 @@ export const Modal = ({
   title,
   children,
   style,
+  backgroundColor = "gray",
 }: PropsWithChildren<ModalProps>) => {
   return (
-    <View
-      style={{
-        padding: 20,
-        backgroundColor: COLOR_MODAL_BACKGROUND_GRAY,
-        ...flexHelper({}),
-      }}
-    >
-      <View style={[styles.modalContainer, style, { zIndex: 1000 }]}>
+    <View style={[styles.modalBackground, styles[backgroundColor]]}>
+      <View
+        style={[
+          styles.modalContainer,
+          { ...(backgroundColor === "white" && styles.whiteBackgroundPadding) },
+          style,
+        ]}
+      >
         {icon && <View style={[styles.iconContainer]}>{icon}</View>}
         {!!title && (
           <Typography variant="h6" style={[styles.title]}>

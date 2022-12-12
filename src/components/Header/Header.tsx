@@ -1,53 +1,54 @@
-import { DrawerActions } from "@react-navigation/native";
+import { DrawerActions, useNavigation, useRoute } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { routes } from "../../constants";
 import { ArrowLeftIcon, HeartIcon, ShoppingBagIcon } from "../../theme/icons";
-import { NavigationProp } from "../../types";
 import { BurgerButton } from "../BurgerButton";
 import { Typography } from "../Typography";
+import { getHeaderType } from "./Header.helpers";
 import { styles } from "./Header.styles";
 
-type HeaderProps = {
-  type: "main" | "product";
-};
+export const Header = () => {
+  const navigation = useNavigation();
 
-export const Header = ({
-  type,
-  navigation,
-  drawerNavigation,
-}: HeaderProps & NavigationProp) => {
+  const { name } = useRoute();
+
+  const headerType = getHeaderType(name);
+
   const handlePressBack = () => {
     navigation?.goBack();
   };
 
   const openMainDrawer = useCallback(() => {
-    drawerNavigation?.dispatch(DrawerActions.toggleDrawer());
-  }, [drawerNavigation]);
+    navigation?.dispatch(DrawerActions.toggleDrawer());
+  }, [navigation]);
 
   const handleShoppingBagPress = () => {
-    navigation?.navigate(routes.myCart);
+    navigation.navigate(routes.myCart as never);
   };
 
   return (
     <View style={styles.headerContainer}>
-      {type === "main" && (
+      {headerType === "main" && (
         <>
-          <BurgerButton onPress={openMainDrawer} />
-          <Typography variant="h6" color="white">
+          <BurgerButton style={styles.leftControls} onPress={openMainDrawer} />
+          <Typography style={styles.title} variant="h6" color="white">
             Ecommerce store
           </Typography>
-          <TouchableOpacity onPress={handleShoppingBagPress}>
+          <TouchableOpacity
+            style={[styles.rightControls]}
+            onPress={handleShoppingBagPress}
+          >
             <ShoppingBagIcon />
           </TouchableOpacity>
         </>
       )}
-      {type === "product" && (
+      {headerType === "productDetails" && (
         <>
-          <TouchableOpacity onPress={handlePressBack}>
+          <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
             <ArrowLeftIcon />
           </TouchableOpacity>
-          <View style={[styles.iconContainer]}>
+          <View style={[styles.iconContainer, styles.rightControls]}>
             <TouchableOpacity style={[styles.margin]}>
               <HeartIcon />
             </TouchableOpacity>
@@ -55,6 +56,17 @@ export const Header = ({
               <ShoppingBagIcon />
             </TouchableOpacity>
           </View>
+        </>
+      )}
+      {headerType === "myCart" && (
+        <>
+          <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
+            <ArrowLeftIcon />
+          </TouchableOpacity>
+          <Typography style={styles.title} variant="h6" color="white">
+            My cart
+          </Typography>
+          <View />
         </>
       )}
     </View>

@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import {
+  COLOR_ERROR,
   COLOR_TEXT_BLACK,
   COLOR_TEXT_BLUE,
   COLOR_TEXT_GRAY,
@@ -8,6 +9,9 @@ import {
 import { FontWeights } from "./Typography.types";
 
 export const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Roboto",
+  },
   h1: {
     fontWeight: FontWeights.fontWeightBold,
     fontSize: 40,
@@ -33,6 +37,11 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
   },
+  caption: {
+    fontWeight: FontWeights.fontWeightRegular,
+    fontSize: 12,
+    lineHeight: 16,
+  },
   white: {
     color: COLOR_TEXT_WHITE,
   },
@@ -44,5 +53,8 @@ export const styles = StyleSheet.create({
   },
   blue: {
     color: COLOR_TEXT_BLUE,
+  },
+  error: {
+    color: COLOR_ERROR,
   },
 });

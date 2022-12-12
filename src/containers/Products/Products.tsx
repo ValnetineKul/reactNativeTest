@@ -1,12 +1,12 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
-import { RefreshControl } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView, View } from "react-native";
 import { baseApi } from "../../api";
-import { Card, Header, Input, Typography, WrapperContainer } from "../../components";
+import { Card, Header, Input, Typography } from "../../components";
 import { routes } from "../../constants";
 import { SearchIcon } from "../../theme/icons";
 import { NavigationProp, Product } from "../../types";
 import { ProductList } from "./components";
+import { styles } from "./Product.styles";
 
 export const mockProduct = {
   id: 1,
@@ -42,26 +42,26 @@ export const Products = ({ navigation }: PropsWithChildren & NavigationProp) => 
     getProducts();
   }, []);
 
-  if (isLoading) {
-    return <Typography>Loading ...</Typography>;
-  }
   return (
     <>
-      <ScrollView stickyHeaderHiddenOnScroll>
-        <Header type="main" navigation={navigation} />
-      </ScrollView>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={getProducts} />
-        }
-      >
-        <Card variant="horizontalFull" style={{ padding: 16 }}>
+      <SafeAreaView>
+        <Header />
+      </SafeAreaView>
+      <View>
+        <Card variant="horizontalFull" style={styles.inputContainer}>
           <Input onChange={() => {}} value="" startAdorment={<SearchIcon />} />
         </Card>
-        <WrapperContainer>
-          <ProductList products={products} onProductClick={handleProductClick} />
-        </WrapperContainer>
-      </ScrollView>
+        {isLoading ? (
+          <Typography>Loading ...</Typography>
+        ) : (
+          <ProductList
+            products={products}
+            onProductClick={handleProductClick}
+            getProducts={getProducts}
+            isLoading={isLoading}
+          />
+        )}
+      </View>
     </>
   );
 };

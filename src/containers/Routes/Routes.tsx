@@ -4,9 +4,15 @@ import React from "react";
 import { modalRoutes, routes } from "../../constants";
 import { Home } from "../../pages";
 import { COLOR_TEXT_WHITE } from "../../theme";
-import { ChooseColorModal } from "../Layout/components";
-import { LoginModal } from "../Layout/components/LoginModal";
-import { ProductAddedModal } from "../Layout/components/ProductAddedModal";
+import {
+  ChooseColorModal,
+  ForgotPasswordModal,
+  LoginRequiredModal,
+  ProductAddedModal,
+  ProductRemovedModal,
+  LoginModal,
+  SignUpModal,
+} from "../Layout/components";
 import { MyCart } from "../MyCart";
 import { ProductDetails } from "../ProductDetails";
 
@@ -38,7 +44,20 @@ export const Routes = () => {
             name={modalRoutes.productAdded}
             component={ProductAddedModal}
           />
+          <Stack.Screen
+            name={modalRoutes.loginRequired}
+            component={LoginRequiredModal}
+          />
+          <Stack.Screen
+            name={modalRoutes.productRemoved}
+            component={ProductRemovedModal}
+          />
+          <Stack.Screen name={modalRoutes.signUp} component={SignUpModal} />
           <Stack.Screen name={modalRoutes.login} component={LoginModal} />
+          <Stack.Screen
+            name={modalRoutes.forgotPassword}
+            component={ForgotPasswordModal}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

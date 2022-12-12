@@ -31,3 +31,11 @@ type Attribute = {
   display_price: string;
   compare_at_price?: string | null;
 };
+
+export type LoginRes = {
+  accessToken: string;
+  tokenType: "Bearer";
+  expiresIn: number;
+  refreshToken: string;
+  createdAt: number;
+};

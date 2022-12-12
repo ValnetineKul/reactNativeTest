@@ -8,6 +8,10 @@ export const routes = {
 
 export const modalRoutes = {
   chooseColor: "chooseColor",
-  login: "login",
+  loginRequired: "loginRequired",
   productAdded: "productAdded",
+  productRemoved: "productRemoved",
+  login: "login",
+  signUp: "signUp",
+  forgotPassword: "forgotPassword",
 };

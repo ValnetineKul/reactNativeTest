@@ -6,7 +6,7 @@ import { CardVariants } from "./Card.types";
 type CardProps = {
   variant?: CardVariants;
   color?: string;
-  style?: ViewStyle;
+  style?: ViewStyle | ViewStyle[];
   shadowBox?: boolean;
 };
 
