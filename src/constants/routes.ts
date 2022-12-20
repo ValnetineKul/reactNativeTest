@@ -4,6 +4,7 @@ export const routes = {
   drawerMain: "main/drawer",
   productDetails: "product/:id",
   myCart: "myCart",
+  myCartLogin: "myCartLogin",
 };
 
 export const modalRoutes = {

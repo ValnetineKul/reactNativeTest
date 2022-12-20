@@ -1,3 +1,4 @@
+import { Linking } from "react-native";
 import { routes } from "../../../../constants";
 import { COLOR_TEXT_BLUE } from "../../../../theme";
 import {
@@ -9,6 +10,9 @@ import {
   ShoppingBagFilledIcon,
   ShoppingBagIcon,
 } from "../../../../theme/icons";
+
+const mockPhoneNumber = "123456789";
+const mockSupportMail = "test@mail.com";
 
 export const drawerContent = {
   myAccount: {
@@ -47,13 +51,17 @@ export const drawerContent = {
         title: "Email",
         Icon: <EmailIcon />,
         route: routes.productDetails,
-        onPress: () => {},
+        onPress: () => {
+          Linking.openURL(`mailto:${mockSupportMail}`);
+        },
       },
       {
         title: "Call",
         Icon: <PhoneIcon />,
         route: routes.productDetails,
-        onPress: () => {},
+        onPress: () => {
+          Linking.openURL(`tel:${mockPhoneNumber}`);
+        },
       },
     ],
   },
@@ -64,7 +72,9 @@ export const drawerContent = {
         title: "Share",
         Icon: <ShareIcon />,
         route: routes.productDetails,
-        onPress: () => {},
+        onPress: () => {
+          Linking.openURL(`tel:${mockPhoneNumber}`);
+        },
       },
     ],
   },

@@ -8,6 +8,11 @@ import { styles } from "../ModalCommon.styles";
 
 export const LoginRequiredModal = (props: NavigationProp) => {
   const { navigation } = props;
+
+  const handleNavigationClick = (route: string) => () => {
+    navigation?.pop();
+    navigation?.navigate(route);
+  };
   return (
     <Modal icon={<WarningIcon />} title="Login To Continue" {...props}>
       <Typography color="gray" style={[styles.subtitle]}>
@@ -16,11 +21,11 @@ export const LoginRequiredModal = (props: NavigationProp) => {
       <View style={[styles.actionButton, styles.flexDirectionRowProvider]}>
         <Button
           style={[styles.notLastButtonMargin]}
-          onPress={() => navigation?.navigate(modalRoutes.login)}
+          onPress={handleNavigationClick(modalRoutes.login)}
           title="LOGIN"
         />
         <Button
-          onPress={() => navigation?.navigate(modalRoutes.signUp)}
+          onPress={handleNavigationClick(modalRoutes.signUp)}
           title="SIGN UP"
         />
       </View>

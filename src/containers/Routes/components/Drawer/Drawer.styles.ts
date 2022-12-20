@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     marginBottom: 72,
   },
   mainContainer: {
-    padding: 16,
+    padding: 20,
   },
   subtitle: {
     fontWeight: FontWeights.fontWeightBold,

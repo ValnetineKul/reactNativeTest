@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
 import { baseApi } from "../../api";
-import { Card, Header, Input, Typography } from "../../components";
+import { Card, Input, Typography } from "../../components";
 import { routes } from "../../constants";
 import { SearchIcon } from "../../theme/icons";
 import { NavigationProp, Product } from "../../types";
@@ -43,25 +43,20 @@ export const Products = ({ navigation }: PropsWithChildren & NavigationProp) => 
   }, []);
 
   return (
-    <>
-      <SafeAreaView>
-        <Header />
-      </SafeAreaView>
-      <View>
-        <Card variant="horizontalFull" style={styles.inputContainer}>
-          <Input onChange={() => {}} value="" startAdorment={<SearchIcon />} />
-        </Card>
-        {isLoading ? (
-          <Typography>Loading ...</Typography>
-        ) : (
-          <ProductList
-            products={products}
-            onProductClick={handleProductClick}
-            getProducts={getProducts}
-            isLoading={isLoading}
-          />
-        )}
-      </View>
-    </>
+    <View>
+      <Card variant="horizontalFull" style={styles.inputContainer}>
+        <Input onChange={() => {}} value="" startAdorment={<SearchIcon />} />
+      </Card>
+      {isLoading ? (
+        <Typography>Loading ...</Typography>
+      ) : (
+        <ProductList
+          products={products}
+          onProductClick={handleProductClick}
+          getProducts={getProducts}
+          isLoading={isLoading}
+        />
+      )}
+    </View>
   );
 };

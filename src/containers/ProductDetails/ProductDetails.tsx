@@ -1,12 +1,11 @@
 import React, { useEffect, useState, type PropsWithChildren } from "react";
-import { Image, RefreshControl, SafeAreaView, View } from "react-native";
+import { Image, RefreshControl, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { baseApi } from "../../api";
 import {
   Button,
   Carousel,
   Divider,
-  Header,
   Typography,
   WrapperContainer,
 } from "../../components";
@@ -47,18 +46,11 @@ export const ProductDetails = ({
   }, []);
 
   if (isLoading) {
-    return (
-      <SafeAreaView>
-        <Typography>Loading ...</Typography>
-      </SafeAreaView>
-    );
+    return <Typography>Loading ...</Typography>;
   }
 
   return (
     <>
-      <SafeAreaView>
-        <Header />
-      </SafeAreaView>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={getProductDetails} />
