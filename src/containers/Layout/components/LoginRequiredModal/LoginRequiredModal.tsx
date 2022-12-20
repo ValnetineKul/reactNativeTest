@@ -10,8 +10,10 @@ export const LoginRequiredModal = (props: NavigationProp) => {
   const { navigation } = props;
 
   const handleNavigationClick = (route: string) => () => {
-    navigation?.pop();
-    navigation?.navigate(route);
+    navigation?.goBack();
+    setTimeout(() => {
+      navigation?.navigate(route);
+    }, 250);
   };
   return (
     <Modal icon={<WarningIcon />} title="Login To Continue" {...props}>
