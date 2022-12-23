@@ -11,3 +11,11 @@ export type NavigationProp = {
   drawerNavigation?: DrawerNavigationProp<any, any>;
   navigation?: NativeStackNavigationProp<any, any>;
 };
+
+export enum RequestStatus {
+  INIT = "INIT",
+  REQUEST = "REQUEST",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+  RESET = "RESET",
+}

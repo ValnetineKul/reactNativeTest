@@ -3,7 +3,7 @@ import { TouchableOpacity, View, ViewStyle } from "react-native";
 import { Typography } from "../Typography";
 import { styles } from "./Button.styles";
 
-type ButtonProps = {
+export type ButtonProps = {
   fullWidth?: boolean;
   onPress?: () => void;
   style?: ViewStyle | ViewStyle[];
@@ -11,6 +11,7 @@ type ButtonProps = {
   startAdorment?: ReactElement;
   endAdorment?: ReactElement;
   color?: "blue" | "gray" | "red";
+  disabled?: boolean;
 };
 
 export const Button = ({
@@ -21,6 +22,7 @@ export const Button = ({
   startAdorment,
   endAdorment,
   color = "blue",
+  disabled,
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <TouchableOpacity
@@ -31,6 +33,7 @@ export const Button = ({
         style,
       ]}
       onPress={onPress}
+      disabled={disabled}
     >
       <View style={[styles.flexProvider]}>
         {startAdorment && <View style={styles.startAdorment}>{startAdorment}</View>}

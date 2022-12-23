@@ -1,10 +1,20 @@
-import React, { ReactElement } from "react";
-import { KeyboardTypeOptions, View, TextInput, ViewStyle } from "react-native";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import {
+  KeyboardTypeOptions,
+  View,
+  TextInput,
+  ViewStyle,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  Animated,
+} from "react-native";
 import { Typography } from "../Typography";
 import { styles } from "./Input.styles";
 
 type InputProps = {
   onChange?: (text: string) => void;
+  onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   label?: string;
   value?: string;
   startAdorment?: ReactElement;
@@ -19,6 +29,8 @@ type InputProps = {
 export const Input = ({
   placeHolder = "",
   onChange,
+  onBlur,
+  onFocus,
   label,
   value,
   startAdorment,
@@ -28,13 +40,52 @@ export const Input = ({
   style,
   type,
 }: InputProps) => {
+  const [isFocused, setFocused] = useState(false);
+  const inputLabelAnimationValue = useRef(new Animated.Value(0)).current;
+
+  const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    onBlur?.(event);
+    setFocused(false);
+  };
+
+  const handleFocus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    onFocus?.(event);
+    setFocused(true);
+  };
+
+  const inputLabelPositionYAnimationInterpolation = {
+    inputRange: [0, 1],
+    outputRange: [0, -18],
+  };
+
+  useEffect(() => {
+    Animated.timing(inputLabelAnimationValue, {
+      toValue: Number(isFocused) || Number(value?.length),
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [inputLabelAnimationValue, isFocused, value?.length]);
+
   return (
     <View style={[styles.inputContainer, { ...(error && styles.error) }, style]}>
       {startAdorment && <View style={styles.startAdorment}>{startAdorment}</View>}
       {label && (
-        <View style={[styles.labelContainer]}>
+        <Animated.View
+          style={[
+            styles.labelContainer,
+            {
+              transform: [
+                {
+                  translateY: inputLabelAnimationValue.interpolate(
+                    inputLabelPositionYAnimationInterpolation
+                  ),
+                },
+              ],
+            },
+          ]}
+        >
           <Typography variant="caption">{label}</Typography>
-        </View>
+        </Animated.View>
       )}
       <TextInput
         onChangeText={onChange}
@@ -43,6 +94,8 @@ export const Input = ({
         keyboardType={keyboardType}
         style={[styles.input, startAdorment && styles.inputStartAdormentPadding]}
         secureTextEntry={type === "password"}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
       />
       {endAdorment}
       {!!error && (

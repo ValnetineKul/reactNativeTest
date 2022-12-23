@@ -5,3 +5,4 @@ export * from "./ProductRemovedModal";
 export * from "./LoginModal";
 export * from "./SignUpModal";
 export * from "./ForgotPasswordModal";
+export * from "./TryAgainModal";

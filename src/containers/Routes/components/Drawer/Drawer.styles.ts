@@ -4,6 +4,7 @@ import { FontWeights } from "../../../../components";
 export const styles = StyleSheet.create({
   title: {
     marginBottom: 72,
+    marginLeft: 8,
   },
   subtitle: {
     fontWeight: FontWeights.fontWeightBold,
@@ -13,9 +14,6 @@ export const styles = StyleSheet.create({
   drawerElement: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  drawerName: {
-    marginLeft: 24,
   },
   dividerMargin: {
     marginBottom: 12,

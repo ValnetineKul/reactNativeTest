@@ -1,10 +1,15 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { Button, Input, Modal, Typography } from "../../../../components";
-import { routes } from "../../../../constants";
-import { useAuthContext } from "../../../../context";
-import { NavigationProp } from "../../../../types";
+import {
+  ApiCallAnimatedButton,
+  Input,
+  Modal,
+  Typography,
+} from "../../../../components";
+import { URLNames, modalRoutes, routes } from "../../../../constants";
+import { useAuthContext, useRequestStatusContext } from "../../../../context";
+import { NavigationProp, RequestStatus } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
 import {
   formHelper,
@@ -20,33 +25,62 @@ export const SignUpModal = (props: NavigationProp) => {
     navigation?.navigate(routes.main.products);
   };
 
+  const { requestStatuses, dispatch } = useRequestStatusContext();
   const handleLoginPress = () => {
     navigation?.navigate(routes.auth.login);
   };
 
-  const handleSubmitForm = async (values: typeof initialFormValues) => {
-    const { fullName, emailAddress, password, confirmPassword } = values;
+  const [lastSubmittedValues, setLastSubmittedValues] = useState(initialFormValues);
 
-    if (handleSignUp) {
-      const isSignUpSuccessful = await handleSignUp({
-        firstName: fullName,
-        lastName: "",
-        email: emailAddress,
-        password,
-        passwordConfirmation: confirmPassword,
-        publicMetadata: {
-          userSegment: "user",
-        },
-        privateMetadata: {
-          hasAbandonedCart: false,
-        },
-      });
+  const handleSubmitForm = useCallback(
+    async (values: typeof initialFormValues) => {
+      const { fullName, emailAddress, password, confirmPassword } = values;
 
-      if (isSignUpSuccessful) {
-        navigation?.navigate(routes.auth.login);
+      if (handleSignUp) {
+        handleSignUp({
+          firstName: fullName,
+          lastName: "",
+          email: emailAddress,
+          password,
+          passwordConfirmation: confirmPassword,
+          publicMetadata: {
+            userSegment: "user",
+          },
+          privateMetadata: {
+            hasAbandonedCart: false,
+          },
+        });
       }
-    }
-  };
+    },
+    [handleSignUp]
+  );
+
+  const handleSuccessSignUp = useCallback(() => {
+    navigation?.navigate(routes.main.products);
+  }, [navigation]);
+
+  const resetRequest = useCallback(() => {
+    dispatch?.({
+      type: URLNames.signUp,
+      payload: {
+        status: RequestStatus.RESET,
+      },
+    });
+  }, [dispatch]);
+
+  const handleFailSignUp = useCallback(() => {
+    navigation?.navigate(modalRoutes.tryAgain, {
+      onTryAgainPress: () => handleSubmitForm(lastSubmittedValues),
+      errorMessage: "My error message",
+    });
+    resetRequest();
+  }, [handleSubmitForm, lastSubmittedValues, navigation, resetRequest]);
+
+  useEffect(() => {
+    return () => {
+      resetRequest();
+    };
+  }, [resetRequest]);
 
   return (
     <Modal backgroundColor="white" {...props}>
@@ -58,9 +92,21 @@ export const SignUpModal = (props: NavigationProp) => {
       <Formik
         initialValues={initialFormValues}
         validationSchema={validationSchema}
-        onSubmit={handleSubmitForm}
+        onSubmit={(values) => {
+          setLastSubmittedValues(values);
+          handleSubmitForm(values);
+        }}
       >
-        {({ handleChange, handleSubmit, values, errors }) => {
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+          dirty,
+          touched,
+          setFieldTouched,
+        }) => {
           return (
             <>
               {formHelper.map(({ id, label, type }, index) => {
@@ -71,16 +117,33 @@ export const SignUpModal = (props: NavigationProp) => {
                     label={label}
                     onChange={handleChange(id)}
                     value={values[id]}
-                    error={errors[id]}
+                    error={touched[id] ? errors[id] : undefined}
                     type={type}
+                    onBlur={() => setFieldTouched(id)}
                   />
                 );
               })}
-              <Button
-                onPress={() => handleSubmit()}
+              <ApiCallAnimatedButton
+                onPress={() => {
+                  if (
+                    requestStatuses?.[URLNames.signUp].status === RequestStatus.ERROR
+                  ) {
+                    resetRequest();
+                    return;
+                  }
+                  handleSubmit();
+                }}
                 title="SIGN UP"
                 fullWidth
                 style={[styles.actionButton]}
+                disabled={
+                  (!isValid && dirty) ||
+                  !dirty ||
+                  requestStatuses?.[URLNames.signUp].status === RequestStatus.REQUEST
+                }
+                status={requestStatuses?.signUp.status}
+                onSuccess={handleSuccessSignUp}
+                onFail={handleFailSignUp}
               />
             </>
           );

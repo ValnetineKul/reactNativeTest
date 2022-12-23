@@ -1,6 +1,14 @@
+export enum URLNames {
+  products = "products",
+  productDetails = "productDetails",
+  signUp = "signUp",
+  login = "login",
+}
+
 export const URL = {
-  products: "/api/v2/storefront/products",
-  productDetails: (id: string | number) => `/api/v2/storefront/products/${id}`,
-  signUp: "/api/v2/storefront/account",
-  login: "/spree_oauth/token",
+  [URLNames.products]: "/api/v2/storefront/products",
+  [URLNames.productDetails]: (id: string | number) =>
+    `/api/v2/storefront/products/${id}`,
+  [URLNames.signUp]: "/api/v2/storefront/account",
+  [URLNames.login]: "/spree_oauth/token",
 };

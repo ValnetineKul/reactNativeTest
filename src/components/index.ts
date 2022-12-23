@@ -9,3 +9,5 @@ export * from "./Carousel";
 export * from "./Divider";
 export * from "./Button";
 export * from "./Modal";
+export * from "./ApiCallAnimatedButton";
+export * from "./Loader";
