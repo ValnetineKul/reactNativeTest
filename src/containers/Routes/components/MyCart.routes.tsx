@@ -15,7 +15,7 @@ export const MyCartRoutes = () => {
     <Stack.Navigator
       initialRouteName={routes.myCart.cart}
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },

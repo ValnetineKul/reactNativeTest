@@ -9,9 +9,9 @@ const Stack = createNativeStackNavigator();
 export const MyProfileRoutes = () => {
   return (
     <Stack.Navigator
-      initialRouteName={routes.myProfile.root}
+      initialRouteName={routes.myProfile.profile}
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },

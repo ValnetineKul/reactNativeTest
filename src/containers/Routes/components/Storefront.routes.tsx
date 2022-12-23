@@ -22,7 +22,7 @@ export const StoreFrontRoutes = () => {
     <Stack.Navigator
       initialRouteName={routes.main.products}
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },
@@ -43,7 +43,10 @@ export const StoreFrontRoutes = () => {
         />
       </Stack.Group>
       <Stack.Group
-        screenOptions={{ presentation: "transparentModal", headerShown: false }}
+        screenOptions={{
+          presentation: "modal",
+          headerShown: false,
+        }}
       >
         <Stack.Screen name={modalRoutes.chooseColor} component={ChooseColorModal} />
         <Stack.Screen

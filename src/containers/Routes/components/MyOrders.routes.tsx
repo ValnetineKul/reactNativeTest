@@ -14,7 +14,7 @@ export const MyOrdersRoutes = () => {
     <Stack.Navigator
       initialRouteName={routes.myOrders.orders}
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },

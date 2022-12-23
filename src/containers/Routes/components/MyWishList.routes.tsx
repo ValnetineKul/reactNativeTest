@@ -9,16 +9,16 @@ const Stack = createNativeStackNavigator();
 export const MyWishListRoutes = () => {
   return (
     <Stack.Navigator
-      initialRouteName={routes.myWishlist.root}
+      initialRouteName={routes.myWishlist.wishlist}
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },
       }}
     >
       <Stack.Screen
-        name={routes.myWishlist.root}
+        name={routes.myWishlist.wishlist}
         component={() => <Typography>My wish list</Typography>}
       />
     </Stack.Navigator>
