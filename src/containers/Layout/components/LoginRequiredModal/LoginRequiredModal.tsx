@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Button, Modal, Typography } from "../../../../components";
-import { modalRoutes } from "../../../../constants";
+import { routes } from "../../../../constants";
 import { WarningIcon } from "../../../../theme/icons/components";
 import { NavigationProp } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
@@ -23,11 +23,11 @@ export const LoginRequiredModal = (props: NavigationProp) => {
       <View style={[styles.actionButton, styles.flexDirectionRowProvider]}>
         <Button
           style={[styles.notLastButtonMargin]}
-          onPress={handleNavigationClick(modalRoutes.login)}
+          onPress={handleNavigationClick(routes.auth.login)}
           title="LOGIN"
         />
         <Button
-          onPress={handleNavigationClick(modalRoutes.signUp)}
+          onPress={handleNavigationClick(routes.auth.signUp)}
           title="SIGN UP"
         />
       </View>

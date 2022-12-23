@@ -8,16 +8,24 @@ import {
   initialFormValues,
   validationSchema,
 } from "./ForgotPasswordModal.helper";
+import { TouchableOpacity } from "react-native";
+import { routes } from "../../../../constants";
 
 export const ForgotPasswordModal = (props: NavigationProp) => {
+  const handleTitlePress = () => {
+    props.navigation?.navigate(routes.main.products);
+  };
+
   const handleSubmitForm = (values: typeof initialFormValues) => {
     console.log(values);
   };
   return (
     <Modal backgroundColor="white" {...props}>
-      <Typography style={styles.loginSignUpTitle} color="blue" variant="h1">
-        Ecomerce Store
-      </Typography>
+      <TouchableOpacity onPress={handleTitlePress}>
+        <Typography style={styles.loginSignUpTitle} color="blue" variant="h1">
+          Ecomerce Store
+        </Typography>
+      </TouchableOpacity>
       <Typography style={[styles.forgotPasswordText]}>
         Enter your email id and we will send you an email to change the password
       </Typography>

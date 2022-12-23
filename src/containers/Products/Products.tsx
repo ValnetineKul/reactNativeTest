@@ -33,7 +33,7 @@ export const Products = ({ navigation }: PropsWithChildren & NavigationProp) => 
   const handleProductClick = useCallback(
     (id: string | number) => {
       console.log(id);
-      navigation?.navigate(routes.productDetails);
+      navigation?.navigate(routes.main.productDetails);
     },
     [navigation]
   );

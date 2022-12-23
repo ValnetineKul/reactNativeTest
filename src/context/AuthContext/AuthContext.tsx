@@ -52,8 +52,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const value = await AsyncStorage.getItem(USER_LOGIN_DATA_STORAGE_KEY);
       if (value !== null) {
         const parsedData: LoginRes = JSON.parse(value);
-        console.log(parsedData, "parsedData");
-
         setLoginData(parsedData);
       }
     } catch (error) {

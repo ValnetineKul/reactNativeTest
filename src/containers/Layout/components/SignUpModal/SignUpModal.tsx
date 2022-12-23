@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { Button, Input, Modal, Typography } from "../../../../components";
-import { modalRoutes } from "../../../../constants";
+import { routes } from "../../../../constants";
 import { useAuthContext } from "../../../../context";
 import { NavigationProp } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
@@ -16,8 +16,12 @@ export const SignUpModal = (props: NavigationProp) => {
   const { navigation } = props;
   const { handleSignUp } = useAuthContext();
 
+  const handleTitlePress = () => {
+    navigation?.navigate(routes.main.products);
+  };
+
   const handleLoginPress = () => {
-    navigation?.navigate(modalRoutes.login);
+    navigation?.navigate(routes.auth.login);
   };
 
   const handleSubmitForm = async (values: typeof initialFormValues) => {
@@ -39,16 +43,18 @@ export const SignUpModal = (props: NavigationProp) => {
       });
 
       if (isSignUpSuccessful) {
-        navigation?.navigate(modalRoutes.login);
+        navigation?.navigate(routes.auth.login);
       }
     }
   };
 
   return (
     <Modal backgroundColor="white" {...props}>
-      <Typography style={styles.loginSignUpTitle} color="blue" variant="h1">
-        Ecomerce Store
-      </Typography>
+      <TouchableOpacity onPress={handleTitlePress}>
+        <Typography style={styles.loginSignUpTitle} color="blue" variant="h1">
+          Ecomerce Store
+        </Typography>
+      </TouchableOpacity>
       <Formik
         initialValues={initialFormValues}
         validationSchema={validationSchema}

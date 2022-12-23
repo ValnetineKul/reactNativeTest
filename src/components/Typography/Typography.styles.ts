@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   h1: {
     fontWeight: FontWeights.fontWeightBold,
-    fontSize: 40,
+    fontSize: 38,
     lineHeight: 50,
   },
   h2: {},

@@ -10,7 +10,7 @@ type MyCartEmptyProps = {} & NavigationProp;
 
 export const MyCartEmpty = ({ navigation }: MyCartEmptyProps) => {
   const handleShopNowPress = () => {
-    navigation?.navigate(routes.main);
+    navigation?.navigate(routes.main.products);
   };
 
   return (

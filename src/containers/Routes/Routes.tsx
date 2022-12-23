@@ -1,67 +1,75 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { modalRoutes, routes } from "../../constants";
-import { COLOR_TEXT_WHITE } from "../../theme";
+import { routes } from "../../constants";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 import {
-  ChooseColorModal,
-  ForgotPasswordModal,
-  LoginRequiredModal,
-  ProductAddedModal,
-  ProductRemovedModal,
-  LoginModal,
-  SignUpModal,
-} from "../Layout/components";
-import { MyCart } from "../MyCart";
-import { ProductDetails } from "../ProductDetails";
-import { Products } from "../Products";
-import { Header } from "../../components";
-import { useAuthContext } from "../../context";
-import { MyCartLoginContainer } from "../MyCartLogin";
+  DrawerMenu,
+  MyCartRoutes,
+  MyOrdersRoutes,
+  MyWishListRoutes,
+  StoreFrontRoutes,
+} from "./components";
+import { COLOR_TEXT_BLUE } from "../../components";
+import { MyProfileRoutes } from "./components/MyProfile.routes";
+import {
+  HeartFilledIcon,
+  ProfileIcon,
+  ShoppingBagFilledIcon,
+  ShoppingBagIcon,
+} from "../../theme/icons";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export const Routes = () => {
-  const { loginData } = useAuthContext();
   return (
-    <Stack.Navigator
-      initialRouteName={routes.productsMain}
-      screenOptions={{
-        header: () => <Header />,
-        contentStyle: {
-          backgroundColor: COLOR_TEXT_WHITE,
-        },
-      }}
-    >
-      <Stack.Group>
-        <Stack.Screen name={routes.productsMain} component={Products} />
-        <Stack.Screen name={routes.productDetails} component={ProductDetails} />
-        {loginData ? (
-          <Stack.Screen name={routes.myCart} component={MyCart} />
-        ) : (
-          <Stack.Screen name={routes.myCartLogin} component={MyCartLoginContainer} />
-        )}
-      </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal", headerShown: false }}>
-        <Stack.Screen name={modalRoutes.chooseColor} component={ChooseColorModal} />
-        <Stack.Screen
-          name={modalRoutes.productAdded}
-          component={ProductAddedModal}
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContent={DrawerMenu}
+        initialRouteName={routes.main.root}
+        defaultScreenOptions={{
+          headerShown: false,
+        }}
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Drawer.Screen
+          options={{
+            drawerItemStyle: { height: 0 },
+          }}
+          name={routes.main.root}
+          component={StoreFrontRoutes}
         />
-        <Stack.Screen
-          name={modalRoutes.loginRequired}
-          component={LoginRequiredModal}
+        <Drawer.Screen
+          options={{ drawerLabel: "My Profile", drawerIcon: () => <ProfileIcon /> }}
+          name={routes.myProfile.root}
+          component={MyProfileRoutes}
         />
-        <Stack.Screen
-          name={modalRoutes.productRemoved}
-          component={ProductRemovedModal}
+        <Drawer.Screen
+          options={{
+            drawerLabel: "My WishList",
+            drawerIcon: () => <HeartFilledIcon />,
+          }}
+          name={routes.myWishlist.root}
+          component={MyWishListRoutes}
         />
-        <Stack.Screen name={modalRoutes.signUp} component={SignUpModal} />
-        <Stack.Screen name={modalRoutes.login} component={LoginModal} />
-        <Stack.Screen
-          name={modalRoutes.forgotPassword}
-          component={ForgotPasswordModal}
+        <Drawer.Screen
+          options={{
+            drawerLabel: "My Cart",
+            drawerIcon: () => <ShoppingBagIcon color={COLOR_TEXT_BLUE} />,
+          }}
+          name={routes.myCart.root}
+          component={MyCartRoutes}
         />
-      </Stack.Group>
-    </Stack.Navigator>
+        <Drawer.Screen
+          options={{
+            drawerLabel: "My Orders",
+            drawerIcon: () => <ShoppingBagFilledIcon />,
+          }}
+          name={routes.myOrders.root}
+          component={MyOrdersRoutes}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };
