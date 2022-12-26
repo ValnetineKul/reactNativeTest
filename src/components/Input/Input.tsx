@@ -10,6 +10,10 @@ import {
 } from "react-native";
 import { Typography } from "../Typography";
 import { styles } from "./Input.styles";
+import {
+  inputLabelPositionYAnimationInterpolation,
+  inputLabelScaleAnimationInterpolation,
+} from "./Input.helpers";
 
 type InputProps = {
   onChange?: (text: string) => void;
@@ -53,14 +57,9 @@ export const Input = ({
     setFocused(true);
   };
 
-  const inputLabelPositionYAnimationInterpolation = {
-    inputRange: [0, 1],
-    outputRange: [0, -18],
-  };
-
   useEffect(() => {
     Animated.timing(inputLabelAnimationValue, {
-      toValue: Number(isFocused) || Number(value?.length),
+      toValue: Number(isFocused) || Number(!!value?.length),
       duration: 200,
       useNativeDriver: true,
     }).start();
@@ -78,6 +77,11 @@ export const Input = ({
                 {
                   translateY: inputLabelAnimationValue.interpolate(
                     inputLabelPositionYAnimationInterpolation
+                  ),
+                },
+                {
+                  scale: inputLabelAnimationValue.interpolate(
+                    inputLabelScaleAnimationInterpolation
                   ),
                 },
               ],

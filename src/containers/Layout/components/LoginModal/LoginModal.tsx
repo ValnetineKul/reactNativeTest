@@ -19,6 +19,7 @@ import {
   validationSchema,
 } from "./LoginModal.helper";
 import { useRequestStatusContext } from "../../../../context/RequestStatusContext";
+import { Fireworks } from "../../../../components/Fireworks";
 
 export const LoginModal = (props: NavigationProp) => {
   const { navigation } = props;
@@ -154,6 +155,9 @@ export const LoginModal = (props: NavigationProp) => {
         fullWidth
         color="gray"
       />
+      {requestStatuses?.[URLNames.login].status === RequestStatus.SUCCESS && (
+        <Fireworks density={5} zIndex={2} speed={3} numOfPieces={10} />
+      )}
     </Modal>
   );
 };

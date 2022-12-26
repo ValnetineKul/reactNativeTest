@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useRef } from "react";
+import React, { PropsWithChildren, useMemo, useRef } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 import { ButtonProps } from "../Button";
 import { styles } from "./ApiCallAnimatedButton.styles";
@@ -70,109 +70,109 @@ export const ApiCallAnimatedButton = ({
   useAnimationController(animatedValues, status, onFail, onSuccess);
   const isSuccess = status === RequestStatus.SUCCESS;
 
-  const shakeButtonAnimatesStyles = isSuccess
-    ? {
-        transform: [{ translateY: buttonShakeAnimation }],
-      }
-    : {
-        transform: [{ translateX: buttonShakeAnimation }],
-      };
+  const shakeButtonAnimatesStyles = useMemo(
+    () =>
+      isSuccess
+        ? {
+            transform: [{ translateY: buttonShakeAnimation }],
+          }
+        : {
+            transform: [{ translateX: buttonShakeAnimation }],
+          },
+    [buttonShakeAnimation, isSuccess]
+  );
 
   return (
-    <>
-      <AnimatedTouchableOpacity
+    <AnimatedTouchableOpacity
+      style={[
+        styles.button,
+        styles[color],
+        { ...(fullWidth && styles.fullWidth) },
+        style,
+        {
+          width: widthOfAnimatedButtonContainer.interpolate(
+            buttonWidthInterpolationData
+          ),
+          backgroundColor: colorOfButton.interpolate(buttonColorInterpolationData),
+          ...shakeButtonAnimatesStyles,
+        },
+      ]}
+      onPress={onPress}
+      disabled={disabled}
+    >
+      <Animated.View
         style={[
-          styles.button,
-          styles[color],
-          { ...(fullWidth && styles.fullWidth) },
-          style,
+          styles.flexProvider,
           {
-            width: widthOfAnimatedButtonContainer.interpolate(
-              buttonWidthInterpolationData
-            ),
-            backgroundColor: colorOfButton.interpolate(buttonColorInterpolationData),
-            ...shakeButtonAnimatesStyles,
+            opacity: opacityOfInnerButtonWrapper,
           },
         ]}
-        onPress={onPress}
-        disabled={disabled}
       >
+        {startAdorment && <View style={styles.startAdorment}>{startAdorment}</View>}
+        <Typography variant="body1" color="white" style={styles.title}>
+          {title}
+        </Typography>
+        {endAdorment && <View style={styles.endAdorment}>{endAdorment}</View>}
+      </Animated.View>
+      <Loader style={{ opacity: opacityOfLoader }} />
+      <Animated.View
+        style={[
+          styles.successFailTextContainer,
+          {
+            opacity: successFailText,
+          },
+        ]}
+      >
+        <Typography style={[styles.successFailText]} color="white">
+          {isSuccess ? successText : failText}
+        </Typography>
+      </Animated.View>
+      <Animated.View style={[styles.crossContainer]}>
         <Animated.View
           style={[
-            styles.flexProvider,
+            styles.crossLeft,
             {
-              opacity: opacityOfInnerButtonWrapper,
+              height: crossLeft.interpolate(
+                isSuccess
+                  ? tickHeightInterpolationData
+                  : crossHeightInterpolationData
+              ),
+              right: crossLeft.interpolate(
+                isSuccess
+                  ? tickSidePositionInterpolationData
+                  : crossSidePositionInterpolationData
+              ),
+              top: crossLeft.interpolate(
+                isSuccess
+                  ? tickTopPositionInterpolationData
+                  : crossTopPositionInterpolationData
+              ),
             },
           ]}
-        >
-          {startAdorment && (
-            <View style={styles.startAdorment}>{startAdorment}</View>
-          )}
-          <Typography variant="body1" color="white" style={styles.title}>
-            {title}
-          </Typography>
-          {endAdorment && <View style={styles.endAdorment}>{endAdorment}</View>}
-        </Animated.View>
-        <Loader style={{ opacity: opacityOfLoader }} />
+        />
         <Animated.View
           style={[
-            styles.successFailTextContainer,
+            styles.crossRight,
             {
-              opacity: successFailText,
+              height: crossRight.interpolate(
+                isSuccess
+                  ? tickHeightInterpolationData2
+                  : crossHeightInterpolationData
+              ),
+              left: crossRight.interpolate(
+                isSuccess
+                  ? tickSidePositionInterpolationData2
+                  : crossSidePositionInterpolationData
+              ),
+              top: crossRight.interpolate(
+                isSuccess
+                  ? tickTopPositionInterpolationData2
+                  : crossTopPositionInterpolationData
+              ),
             },
           ]}
-        >
-          <Typography style={[styles.successFailText]} color="white">
-            {isSuccess ? successText : failText}
-          </Typography>
-        </Animated.View>
-        <Animated.View style={[styles.crossContainer]}>
-          <Animated.View
-            style={[
-              styles.crossLeft,
-              {
-                height: crossLeft.interpolate(
-                  isSuccess
-                    ? tickHeightInterpolationData
-                    : crossHeightInterpolationData
-                ),
-                right: crossLeft.interpolate(
-                  isSuccess
-                    ? tickSidePositionInterpolationData
-                    : crossSidePositionInterpolationData
-                ),
-                top: crossLeft.interpolate(
-                  isSuccess
-                    ? tickTopPositionInterpolationData
-                    : crossTopPositionInterpolationData
-                ),
-              },
-            ]}
-          />
-          <Animated.View
-            style={[
-              styles.crossRight,
-              {
-                height: crossRight.interpolate(
-                  isSuccess
-                    ? tickHeightInterpolationData2
-                    : crossHeightInterpolationData
-                ),
-                left: crossRight.interpolate(
-                  isSuccess
-                    ? tickSidePositionInterpolationData2
-                    : crossSidePositionInterpolationData
-                ),
-                top: crossRight.interpolate(
-                  isSuccess
-                    ? tickTopPositionInterpolationData2
-                    : crossTopPositionInterpolationData
-                ),
-              },
-            ]}
-          />
-        </Animated.View>
-      </AnimatedTouchableOpacity>
-    </>
+        />
+      </Animated.View>
+    </AnimatedTouchableOpacity>
   );
 };

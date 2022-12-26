@@ -328,16 +328,9 @@ export const useAnimationController = (
         resetAnim().start();
       }
     }
-  }, [
-    failAnimation,
-    status,
-    successAnimation,
-    isAnimationInProgress,
-    onFail,
-    onSuccess,
-    resetAnim,
-    initAnimation,
-  ]);
+    // no need to check the animation funcs update
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, isAnimationInProgress, onFail, onSuccess]);
 
   return { initAnimation, successAnimation, failAnimation, resetAnim };
 };
