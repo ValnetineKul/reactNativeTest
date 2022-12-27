@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
-import { COLOR_CARD_BOX_SHADOW, COLOR_TEXT_BLUE } from "../../theme";
+import {
+  COLOR_CARD_BOX_SHADOW,
+  COLOR_ERROR,
+  COLOR_TEXT_BLUE,
+  COLOR_TEXT_GRAY,
+} from "../../theme";
+import { flexHelper } from "../../utils";
+import { FontWeights } from "../Typography";
 
 export const styles = StyleSheet.create({
   button: {
-    // width: Dimensions.get("window").width - 32,
-    // position: "absolute",
-    // bottom: 48,
-    // left: 16,
     padding: 12,
     backgroundColor: COLOR_TEXT_BLUE,
     borderRadius: 4,
@@ -14,8 +17,32 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.3,
     width: 125,
+    height: 40,
   },
   fullWidth: {
     width: "100%",
+  },
+  title: {
+    fontWeight: FontWeights.fontWeightMedium,
+    textAlign: "center",
+    lineHeight: 18,
+  },
+  startAdorment: {
+    marginRight: 16,
+  },
+  endAdorment: {
+    marginLeft: 16,
+  },
+  flexProvider: {
+    ...flexHelper({}),
+  },
+  blue: {
+    backgroundColor: COLOR_TEXT_BLUE,
+  },
+  gray: {
+    backgroundColor: COLOR_TEXT_GRAY,
+  },
+  red: {
+    backgroundColor: COLOR_ERROR,
   },
 });

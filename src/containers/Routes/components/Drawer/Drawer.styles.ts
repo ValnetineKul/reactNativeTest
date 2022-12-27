@@ -7,17 +7,17 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontWeight: FontWeights.fontWeightBold,
-    marginBottom: 28,
+    marginBottom: 12,
+    marginLeft: 20,
   },
   drawerElement: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 24,
   },
   drawerName: {
     marginLeft: 24,
   },
   dividerMargin: {
-    marginBottom: 24,
+    marginBottom: 12,
   },
 });

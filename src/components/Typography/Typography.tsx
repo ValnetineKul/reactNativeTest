@@ -15,5 +15,9 @@ export const Typography = ({
   children,
   style,
 }: PropsWithChildren<TypographyProps>) => {
-  return <Text style={[styles[variant], styles[color], style]}>{children}</Text>;
+  return (
+    <Text style={[styles.font, styles[variant], styles[color], style]}>
+      {children}
+    </Text>
+  );
 };

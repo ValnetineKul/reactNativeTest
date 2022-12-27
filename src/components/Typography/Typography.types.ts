@@ -18,6 +18,7 @@ export type TypographyVariants =
   | "h5"
   | "h6"
   | "body1"
-  | "body2";
+  | "body2"
+  | "caption";
 
-export type TypographyColors = "black" | "white" | "gray" | "blue";
+export type TypographyColors = "black" | "white" | "gray" | "blue" | "error";

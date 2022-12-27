@@ -1,41 +1,60 @@
-import React, { Fragment } from "react";
-import { TouchableOpacity } from "react-native";
-import { WrapperContainer, Typography, Divider } from "../../../../components";
-import { drawerContent } from "./Drawer.helpers";
+import React from "react";
+import { Typography, Divider } from "../../../../components";
 import { styles } from "./Drawer.styles";
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import { routes } from "../../../../constants";
+import { Linking } from "react-native";
+import { EmailIcon, PhoneIcon, ShareIcon } from "../../../../theme/icons";
+import { mockSupportMail, mockPhoneNumber } from "./Drawer.helpers";
 
-export const DrawerMenu = () => {
+export const DrawerMenu = (props: DrawerContentComponentProps) => {
+  const handleTitlePress = () => {
+    props.navigation.navigate(routes.main.products);
+  };
   return (
-    <WrapperContainer>
-      <Typography variant="h1" color="blue" style={styles.title}>
-        Ecommerce Store
+    <DrawerContentScrollView>
+      <DrawerItem
+        label={() => (
+          <Typography variant="h1" color="blue" style={styles.title}>
+            Ecommerce Store
+          </Typography>
+        )}
+        onPress={handleTitlePress}
+      />
+
+      <Typography variant="h6" color="gray" style={[styles.subtitle]}>
+        My Account
       </Typography>
-      {Object.values(drawerContent).map((drawerContentPart, index) => {
-        const { title, routes: drawerRoutes } = drawerContentPart;
-        return (
-          <Fragment key={index}>
-            {index > 0 && <Divider style={[styles.dividerMargin]} />}
-            {!!title.length && (
-              <Typography variant="h6" color="gray" style={[styles.subtitle]}>
-                {title}
-              </Typography>
-            )}
-            {drawerRoutes.map((routeElement) => {
-              const { Icon, title: routeTitle, onPress } = routeElement;
-              return (
-                <TouchableOpacity
-                  key={routeTitle}
-                  onPress={onPress}
-                  style={[styles.drawerElement]}
-                >
-                  {Icon}
-                  <Typography style={[styles.drawerName]}>{routeTitle}</Typography>
-                </TouchableOpacity>
-              );
-            })}
-          </Fragment>
-        );
-      })}
-    </WrapperContainer>
+      <DrawerItemList {...props} />
+      <Divider style={[styles.dividerMargin]} />
+      <Typography variant="h6" color="gray" style={[styles.subtitle]}>
+        Support
+      </Typography>
+      <DrawerItem
+        onPress={() => {
+          Linking.openURL(`mailto:${mockSupportMail}`);
+        }}
+        label={() => <Typography>Email</Typography>}
+        icon={() => <EmailIcon />}
+      />
+      <DrawerItem
+        onPress={() => {
+          Linking.openURL(`mailto:${mockPhoneNumber}`);
+        }}
+        label={() => <Typography>Call</Typography>}
+        icon={() => <PhoneIcon />}
+      />
+      <Divider style={[styles.dividerMargin]} />
+      <DrawerItem
+        onPress={() => console.log("SHARE")}
+        label={() => <Typography>Share</Typography>}
+        icon={() => <ShareIcon />}
+      />
+    </DrawerContentScrollView>
   );
 };

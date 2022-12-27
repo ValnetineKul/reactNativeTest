@@ -1,9 +1,13 @@
 import { StyleSheet } from "react-native";
-import { COLOR_TEXT_WHITE } from "../../theme";
+import { COLOR_MODAL_BACKGROUND_GRAY, COLOR_TEXT_WHITE } from "../../theme";
 import { flexHelper } from "../../utils";
 import { FontWeights } from "../Typography";
 
 export const styles = StyleSheet.create({
+  modalBackground: {
+    padding: 20,
+    ...flexHelper({}),
+  },
   modalContainer: {
     paddingTop: 24,
     paddingHorizontal: 32,
@@ -19,5 +23,14 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 10,
     textAlign: "center",
+  },
+  gray: {
+    backgroundColor: COLOR_MODAL_BACKGROUND_GRAY,
+  },
+  white: {
+    backgroundColor: COLOR_TEXT_WHITE,
+  },
+  whiteBackgroundPadding: {
+    paddingHorizontal: 20,
   },
 });

@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from "react";
-import { TouchableOpacity, ViewStyle } from "react-native";
-import { FontWeights, Typography } from "../Typography";
+import React, { PropsWithChildren, ReactElement } from "react";
+import { TouchableOpacity, View, ViewStyle } from "react-native";
+import { Typography } from "../Typography";
 import { styles } from "./Button.styles";
 
 type ButtonProps = {
@@ -8,6 +8,9 @@ type ButtonProps = {
   onPress?: () => void;
   style?: ViewStyle | ViewStyle[];
   title: string;
+  startAdorment?: ReactElement;
+  endAdorment?: ReactElement;
+  color?: "blue" | "gray" | "red";
 };
 
 export const Button = ({
@@ -15,22 +18,27 @@ export const Button = ({
   style,
   title,
   fullWidth,
+  startAdorment,
+  endAdorment,
+  color = "blue",
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <TouchableOpacity
-      style={[styles.button, style, { ...(fullWidth && styles.fullWidth) }]}
+      style={[
+        styles.button,
+        styles[color],
+        { ...(fullWidth && styles.fullWidth) },
+        style,
+      ]}
       onPress={onPress}
     >
-      <Typography
-        variant="body1"
-        color="white"
-        style={{
-          fontWeight: FontWeights.fontWeightMedium,
-          textAlign: "center",
-        }}
-      >
-        {title}
-      </Typography>
+      <View style={[styles.flexProvider]}>
+        {startAdorment && <View style={styles.startAdorment}>{startAdorment}</View>}
+        <Typography variant="body1" color="white" style={styles.title}>
+          {title}
+        </Typography>
+        {endAdorment && <View style={styles.endAdorment}>{endAdorment}</View>}
+      </View>
     </TouchableOpacity>
   );
 };

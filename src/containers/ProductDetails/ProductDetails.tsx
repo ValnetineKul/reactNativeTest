@@ -5,10 +5,7 @@ import { baseApi } from "../../api";
 import {
   Button,
   Carousel,
-  COLOR_LIGHT_GRAY,
   Divider,
-  FontWeights,
-  Header,
   Typography,
   WrapperContainer,
 } from "../../components";
@@ -41,7 +38,7 @@ export const ProductDetails = ({
   };
 
   const handleAddToCartPress = () => {
-    navigation?.navigate(modalRoutes.login);
+    navigation?.navigate(modalRoutes.loginRequired);
   };
 
   useEffect(() => {
@@ -54,9 +51,6 @@ export const ProductDetails = ({
 
   return (
     <>
-      <ScrollView stickyHeaderHiddenOnScroll>
-        <Header type="product" navigation={navigation} />
-      </ScrollView>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={getProductDetails} />
@@ -71,7 +65,7 @@ export const ProductDetails = ({
           style={styles.carousel}
         />
         <WrapperContainer>
-          <Typography variant="body1" style={{ marginBottom: 12 }}>
+          <Typography variant="body1" style={styles.productName}>
             {product?.attributes.name}
           </Typography>
           <Price
@@ -79,28 +73,15 @@ export const ProductDetails = ({
             oldPrice={product?.attributes.compare_at_price}
             currency={product?.attributes.currency}
           />
-          <Divider style={{ marginTop: 25, marginBottom: 15 }} />
-          <Typography
-            variant="h6"
-            style={{ fontWeight: FontWeights.fontWeightBold, marginBottom: 10 }}
-          >
+          <Divider style={styles.divider} />
+          <Typography variant="h6" style={styles.subtitle}>
             Select Color
           </Typography>
-          <View
-            style={{
-              backgroundColor: COLOR_LIGHT_GRAY,
-              alignSelf: "flex-start",
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-            }}
-          >
+          <View style={styles.colorPickerButton}>
             <Typography variant="body1">Blue</Typography>
           </View>
-          <Divider style={{ marginTop: 25, marginBottom: 15 }} />
-          <Typography
-            variant="h6"
-            style={{ fontWeight: FontWeights.fontWeightBold, marginBottom: 10 }}
-          >
+          <Divider style={styles.divider} />
+          <Typography variant="h6" style={styles.subtitle}>
             Description
           </Typography>
           <Typography>{product?.attributes.description}</Typography>

@@ -13,7 +13,7 @@ type CardProps = {
   currency?: string;
   discount?: string;
   imageSrc: string;
-  style?: ViewStyle;
+  style?: ViewStyle | ViewStyle[];
 };
 
 export const ProductCard = ({
