@@ -12,12 +12,15 @@ import React from "react";
 
 import { Layout } from "./src/containers";
 import { AuthProvider } from "./src/context";
+import { RequestStatusContextProvider } from "./src/context/RequestStatusContext";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Layout />
-    </AuthProvider>
+    <RequestStatusContextProvider>
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    </RequestStatusContextProvider>
   );
 };
 

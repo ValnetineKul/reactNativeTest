@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
     width: cardWidth,
   },
   bottomPadding: {
-    paddingBottom: 200,
+    paddingBottom: 150,
   },
 });

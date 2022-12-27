@@ -1,17 +1,25 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
-import { Button, Input, Modal, Typography } from "../../../../components";
-import { routes } from "../../../../constants";
+import {
+  ApiCallAnimatedButton,
+  Button,
+  Input,
+  Modal,
+  Typography,
+} from "../../../../components";
+import { URLNames, routes } from "../../../../constants";
 import { useAuthContext } from "../../../../context";
 import { ArrowLeftIcon } from "../../../../theme/icons";
-import { NavigationProp } from "../../../../types";
+import { NavigationProp, RequestStatus } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
 import {
   formHelper,
   initialFormValues,
   validationSchema,
 } from "./LoginModal.helper";
+import { useRequestStatusContext } from "../../../../context/RequestStatusContext";
+import { Fireworks } from "../../../../components/Fireworks";
 
 export const LoginModal = (props: NavigationProp) => {
   const { navigation } = props;
@@ -30,19 +38,40 @@ export const LoginModal = (props: NavigationProp) => {
 
   const { handleLogin } = useAuthContext();
 
+  const { requestStatuses, dispatch } = useRequestStatusContext();
+
+  const resetRequest = useCallback(() => {
+    dispatch?.({
+      type: URLNames.login,
+      payload: {
+        status: RequestStatus.RESET,
+      },
+    });
+  }, [dispatch]);
+
   const handleSubmitForm = async (values: typeof initialFormValues) => {
     if (handleLogin) {
       const { emailAddress, password } = values;
-      const isSuccessfulLogin = await handleLogin({
+      handleLogin({
         username: emailAddress,
         password,
       });
-
-      if (isSuccessfulLogin) {
-        navigation?.navigate(routes.main.root);
-      }
     }
   };
+
+  const handleSuccessLogin = useCallback(() => {
+    navigation?.navigate(routes.main.products);
+  }, [navigation]);
+
+  const handleFailLogin = useCallback(() => {
+    // navigation?.navigate(routes.productsMain);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      resetRequest();
+    };
+  }, [resetRequest]);
 
   return (
     <Modal backgroundColor="white" {...props}>
@@ -55,8 +84,18 @@ export const LoginModal = (props: NavigationProp) => {
         initialValues={initialFormValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmitForm}
+        validateOnBlur
       >
-        {({ handleChange, handleSubmit, values, errors, touched }) => {
+        {({
+          handleChange,
+          handleSubmit,
+          setFieldTouched,
+          values,
+          errors,
+          touched,
+          dirty,
+          isValid,
+        }) => {
           return (
             <>
               {formHelper.map(({ id, label, type }, index) => {
@@ -69,20 +108,38 @@ export const LoginModal = (props: NavigationProp) => {
                     value={values[id]}
                     error={touched[id] ? errors[id] : undefined}
                     type={type}
+                    onBlur={() => setFieldTouched(id)}
                   />
                 );
               })}
               <TouchableOpacity
                 style={[styles.forgotPasswordButton]}
                 onPress={handleForgotPasswordPress}
+                disabled
               >
                 <Typography color="blue">Forgot Password?</Typography>
               </TouchableOpacity>
-              <Button
-                onPress={() => handleSubmit()}
+              <ApiCallAnimatedButton
+                onPress={() => {
+                  if (
+                    requestStatuses?.[URLNames.login].status === RequestStatus.ERROR
+                  ) {
+                    resetRequest();
+                    return;
+                  }
+                  handleSubmit();
+                }}
                 title="SIGN IN"
                 fullWidth
                 style={[styles.actionButton]}
+                disabled={
+                  (!isValid && dirty) ||
+                  !dirty ||
+                  requestStatuses?.[URLNames.login].status === RequestStatus.REQUEST
+                }
+                status={requestStatuses?.[URLNames.login].status}
+                onFail={handleFailLogin}
+                onSuccess={handleSuccessLogin}
               />
             </>
           );
@@ -98,6 +155,9 @@ export const LoginModal = (props: NavigationProp) => {
         fullWidth
         color="gray"
       />
+      {requestStatuses?.[URLNames.login].status === RequestStatus.SUCCESS && (
+        <Fireworks density={5} zIndex={2} speed={3} numOfPieces={10} />
+      )}
     </Modal>
   );
 };

@@ -37,4 +37,5 @@ export const modalRoutes = {
   loginRequired: "loginRequired",
   productAdded: "productAdded",
   productRemoved: "productRemoved",
+  tryAgain: "tryAgain",
 };

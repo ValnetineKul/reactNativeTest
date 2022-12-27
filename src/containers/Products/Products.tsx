@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { baseApi } from "../../api";
-import { Card, Input, Typography } from "../../components";
+import { Card, Input, Loader } from "../../components";
 import { routes } from "../../constants";
 import { SearchIcon } from "../../theme/icons";
 import { NavigationProp, Product } from "../../types";
@@ -32,8 +32,7 @@ export const Products = ({ navigation }: PropsWithChildren & NavigationProp) => 
 
   const handleProductClick = useCallback(
     (id: string | number) => {
-      console.log(id);
-      navigation?.navigate(routes.main.productDetails);
+      navigation?.navigate(routes.main.productDetails, { id });
     },
     [navigation]
   );
@@ -48,7 +47,7 @@ export const Products = ({ navigation }: PropsWithChildren & NavigationProp) => 
         <Input onChange={() => {}} value="" startAdorment={<SearchIcon />} />
       </Card>
       {isLoading ? (
-        <Typography>Loading ...</Typography>
+        <Loader fullScreen />
       ) : (
         <ProductList
           products={products}

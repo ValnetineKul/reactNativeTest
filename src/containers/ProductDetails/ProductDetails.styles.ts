@@ -4,6 +4,10 @@ import { COLOR_LIGHT_GRAY, FontWeights } from "../../components";
 const imageWidth = Dimensions.get("window").width / 1.5;
 
 export const styles = StyleSheet.create({
+  productDetailsContainer: {
+    flexGrow: 1,
+    paddingHorizontal: 16,
+  },
   image: {
     width: imageWidth,
     height: imageWidth,
@@ -14,7 +18,6 @@ export const styles = StyleSheet.create({
     paddingBottom: 32,
   },
   addToCartButton: {
-    width: Dimensions.get("window").width - 32,
     position: "absolute",
     bottom: 16,
     left: 16,

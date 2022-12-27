@@ -2,7 +2,7 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { images } from "../../../assets/images";
 import { Typography, Button } from "../../../components";
-import { modalRoutes } from "../../../constants";
+import { routes } from "../../../constants";
 import { NavigationProp } from "../../../types";
 import { styles } from "../MyCart.styles";
 
@@ -10,11 +10,11 @@ type MyCartLoginProps = {} & NavigationProp;
 
 export const MyCartLogin = ({ navigation }: MyCartLoginProps) => {
   const handleLoginPress = () => {
-    navigation?.navigate(modalRoutes.login);
+    navigation?.navigate(routes.auth.login);
   };
 
   const handleSignUpPress = () => {
-    navigation?.navigate(modalRoutes.signUp);
+    navigation?.navigate(routes.auth.signUp);
   };
   return (
     <>
