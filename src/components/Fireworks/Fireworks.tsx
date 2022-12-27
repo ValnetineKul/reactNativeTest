@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Animated, Dimensions, Easing, View } from "react-native";
 import { COLOR_ERROR, COLOR_SUCCESS, COLOR_TEXT_BLUE } from "../../theme";
 import { styles } from "./Fireworks.styles";
@@ -7,7 +7,6 @@ import { speedHelper, getRandom, getRandomColors } from "./Fireworks.helpers";
 type FireworksProps = {
   height?: number;
   width?: number;
-  zIndex?: number;
   iterations?: number;
   density?: number;
   speed?: 1 | 2 | 3;
@@ -157,9 +156,15 @@ export const Fireworks = ({
     return null;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setExplosionSpots(true);
   }, [setExplosionSpots]);
+
+  useEffect(() => {
+    return () => {
+      count.current = 0;
+    };
+  }, []);
 
   if (!iterations || count.current < iterations) {
     return (

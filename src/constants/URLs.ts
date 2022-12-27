@@ -3,6 +3,9 @@ export enum URLNames {
   productDetails = "productDetails",
   signUp = "signUp",
   login = "login",
+  createCart = "createCart",
+  addToCart = "addToCart",
+  removeFromCart = "removeFromCart",
 }
 
 export const URL = {
@@ -11,4 +14,7 @@ export const URL = {
     `/api/v2/storefront/products/${id}`,
   [URLNames.signUp]: "/api/v2/storefront/account",
   [URLNames.login]: "/spree_oauth/token",
+  [URLNames.createCart]: "/api/v2/storefront/cart",
+  [URLNames.addToCart]: "",
+  [URLNames.removeFromCart]: "",
 };

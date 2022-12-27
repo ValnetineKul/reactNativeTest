@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLOR_TEXT_WHITE } from "../../theme";
+import { COLOR_LIGHT_GRAY, COLOR_TEXT_BLUE, COLOR_TEXT_WHITE } from "../../theme";
 import { flexHelper } from "../../utils";
 
 export const styles = StyleSheet.create({
@@ -16,5 +16,11 @@ export const styles = StyleSheet.create({
     height: 4,
     borderRadius: 50,
     backgroundColor: COLOR_TEXT_WHITE,
+  },
+  fullScreenContainer: {
+    backgroundColor: COLOR_LIGHT_GRAY,
+  },
+  fullScreenDot: {
+    backgroundColor: COLOR_TEXT_BLUE,
   },
 });

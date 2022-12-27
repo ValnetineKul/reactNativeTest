@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, RegisteredStyle, ViewStyle } from "react-native";
 import { styles } from "./Loader.styles";
+import { getDotMargin } from "./Loader.helpers";
 
 type LoaderProps = {
+  fullScreen?: boolean;
   style?:
     | false
     | Animated.Value
@@ -11,7 +13,7 @@ type LoaderProps = {
     | Animated.WithAnimatedObject<ViewStyle>;
 };
 
-export const Loader = ({ style }: LoaderProps) => {
+export const Loader = ({ fullScreen, style }: LoaderProps) => {
   const bounceAnimation = useRef({
     1: new Animated.Value(0),
     2: new Animated.Value(0),
@@ -70,13 +72,20 @@ export const Loader = ({ style }: LoaderProps) => {
     outputRange: [0, -8, 0],
   };
   return (
-    <Animated.View style={[styles.loaderContainer, style]}>
+    <Animated.View
+      style={[
+        styles.loaderContainer,
+        { ...(fullScreen && styles.fullScreenContainer) },
+        style,
+      ]}
+    >
       {new Array(3).fill("").map((_, index) => {
         return (
           <Animated.View
             key={index}
             style={[
               styles.loaderDot,
+              { ...(fullScreen && styles.fullScreenDot) },
               // eslint-disable-next-line react-native/no-inline-styles
               {
                 transform: [
@@ -86,8 +95,11 @@ export const Loader = ({ style }: LoaderProps) => {
                       rotateInterpolateRanges
                     ),
                   },
+                  {
+                    scale: fullScreen ? 3 : 1,
+                  },
                 ],
-                marginLeft: index ? 5 : 0,
+                marginLeft: getDotMargin(index, fullScreen),
               },
             ]}
           />

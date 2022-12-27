@@ -2,10 +2,11 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routes } from "../../../constants";
 import { COLOR_TEXT_WHITE } from "../../../theme";
-import { Header, Typography } from "../../../components";
+import { Header } from "../../../components";
 import { MyCart } from "../../MyCart";
-import { MyCartLoginContainer } from "../../MyCartLogin";
 import { useAuthContext } from "../../../context";
+import { OrderConfirmation } from "../../MyCart/components";
+import { MyCartLoginContainer } from "../../MyCartLogin";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,10 +30,16 @@ export const MyCartRoutes = () => {
           component={MyCartLoginContainer}
         />
       )}
-      <Stack.Screen
-        name={routes.myCart.orderConfirmation}
-        component={() => <Typography>Order confirmation</Typography>}
-      />
+      <Stack.Group
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name={routes.myCart.orderConfirmation}
+          component={OrderConfirmation}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

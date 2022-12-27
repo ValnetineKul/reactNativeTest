@@ -27,7 +27,7 @@ export const Header = () => {
 
   const handleShoppingBagPress = () => {
     navigation.navigate(
-      routes.myCart[loginData ? "root" : "loginRequired"] as never
+      routes.myCart[loginData ? "cart" : "loginRequired"] as never
     );
   };
 

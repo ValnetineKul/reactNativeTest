@@ -27,6 +27,7 @@ type ApiCallAnimatedButtonProps = {
   successText?: string;
   failText?: string;
   isLoading?: string;
+  addMargins?: boolean;
   onSuccess?: () => void;
   onFail?: () => void;
 } & ButtonProps;
@@ -35,7 +36,6 @@ export const ApiCallAnimatedButton = ({
   onPress,
   style,
   title,
-  fullWidth,
   startAdorment,
   endAdorment,
   color = "blue",
@@ -87,7 +87,6 @@ export const ApiCallAnimatedButton = ({
       style={[
         styles.button,
         styles[color],
-        { ...(fullWidth && styles.fullWidth) },
         style,
         {
           width: widthOfAnimatedButtonContainer.interpolate(

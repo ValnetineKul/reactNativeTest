@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
-    // handleCheckAsyncStorageForUserLoginData();
+    handleCheckAsyncStorageForUserLoginData();
   }, [handleCheckAsyncStorageForUserLoginData]);
 
   return <AuthContext.Provider value={currentAuth}>{children}</AuthContext.Provider>;

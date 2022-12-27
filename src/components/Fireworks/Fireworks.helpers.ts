@@ -13,7 +13,7 @@ export const getRandomColors = (colors?: string[]) => {
 };
 
 export const speedHelper: Record<number, number> = {
-  3: 900,
+  3: 500,
   2: 700,
-  1: 500,
+  1: 900,
 };
