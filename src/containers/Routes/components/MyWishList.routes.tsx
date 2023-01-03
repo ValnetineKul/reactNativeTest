@@ -5,6 +5,7 @@ import { COLOR_TEXT_WHITE } from "../../../theme";
 import { Header, Typography } from "../../../components";
 
 const Stack = createNativeStackNavigator();
+const Mock = () => <Typography>My Wish List</Typography>;
 
 export const MyWishListRoutes = () => {
   return (
@@ -17,10 +18,7 @@ export const MyWishListRoutes = () => {
         },
       }}
     >
-      <Stack.Screen
-        name={routes.myWishlist.wishlist}
-        component={() => <Typography>My wish list</Typography>}
-      />
+      <Stack.Screen name={routes.myWishlist.wishlist} component={Mock} />
     </Stack.Navigator>
   );
 };

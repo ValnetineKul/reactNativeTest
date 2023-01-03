@@ -246,8 +246,8 @@ export const buttonWidthInterpolationData = {
 };
 
 export const crossHeightInterpolationData = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30],
+  inputRange: [0, 10],
+  outputRange: [0, 30],
 };
 
 export const crossSidePositionInterpolationData = {
@@ -265,28 +265,28 @@ export const tickHeightInterpolationData = {
 };
 
 export const tickHeightInterpolationData2 = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [0, 1.2, 2.4, 3.6, 4.8, 6, 7.2, 8.4, 9.6, 10.8, 12],
+  inputRange: [0, 10],
+  outputRange: [0, 12],
 };
 
 export const tickSidePositionInterpolationData = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [21, 20.3, 19.6, 18.9, 18.2, 17.5, 16.8, 16.1, 15.4, 14.7, 14],
+  inputRange: [0, 10],
+  outputRange: [21, 14],
 };
 
 export const tickSidePositionInterpolationData2 = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [8.3, 8.6, 8.9, 9.2, 9.5, 9.8, 10.1, 10.3, 10.4, 10.7, 11],
+  inputRange: [0, 10],
+  outputRange: [8.3, 11.3],
 };
 
 export const tickTopPositionInterpolationData = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [29, 27, 25, 23, 21, 19, 17, 15, 13, 11, 9],
+  inputRange: [0, 10],
+  outputRange: [29, 9],
 };
 
 export const tickTopPositionInterpolationData2 = {
-  inputRange: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  outputRange: [28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18],
+  inputRange: [0, 10],
+  outputRange: [28, 18],
 };
 
 export const useAnimationController = (

@@ -1,17 +1,22 @@
 import React from "react";
-import { ViewStyle } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { NavigationProp } from "../../types";
 import { styles } from "./MyCartLogin.styles";
 import { MyCartLogin } from "../MyCart/components";
+import { MyCartStackParamList, MyOrdersStackParamList } from "../../types/routes";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type MyCartProps = {
-  style?: ViewStyle | ViewStyle[];
-} & NavigationProp;
+type MyCartLoginContainerProps =
+  | NativeStackScreenProps<MyCartStackParamList, "myCart/loginRequired">
+  | NativeStackScreenProps<MyOrdersStackParamList, "myOrders/loginRequired">;
 
-export const MyCartLoginContainer = ({ style, navigation }: MyCartProps) => {
+export const MyCartLoginContainer = ({
+  route,
+  navigation,
+}: MyCartLoginContainerProps) => {
   return (
-    <ScrollView contentContainerStyle={[styles.myCartContainer, style]}>
+    <ScrollView
+      contentContainerStyle={[styles.myCartContainer, route.params?.style]}
+    >
       <MyCartLogin navigation={navigation} />
     </ScrollView>
   );

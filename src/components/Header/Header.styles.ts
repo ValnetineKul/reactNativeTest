@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLOR_CARD_BOX_SHADOW, COLOR_TEXT_BLUE } from "../../theme";
+import { COLOR_CARD_BOX_SHADOW, COLOR_ERROR, COLOR_TEXT_BLUE } from "../../theme";
 import { flexHelper } from "../../utils";
 
 export const styles = StyleSheet.create({
@@ -36,5 +36,16 @@ export const styles = StyleSheet.create({
   },
   margin: {
     marginRight: 24,
+  },
+  noInternetContainer: {
+    ...flexHelper({}),
+    padding: 10,
+    backgroundColor: COLOR_ERROR,
+    borderRadius: 12,
+    position: "absolute",
+    height: 40,
+    width: "100%",
+    top: 180,
+    zIndex: 1,
   },
 });

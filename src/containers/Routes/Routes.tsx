@@ -1,7 +1,5 @@
 import React from "react";
-import { routes } from "../../constants";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
 import {
   DrawerMenu,
   MyCartRoutes,
@@ -17,59 +15,55 @@ import {
   ShoppingBagFilledIcon,
   ShoppingBagIcon,
 } from "../../theme/icons";
+import { RootDrawerParamList } from "../../types/routes";
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 export const Routes = () => {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={DrawerMenu}
-        initialRouteName={routes.main.root}
-        defaultScreenOptions={{
-          headerShown: false,
+    <Drawer.Navigator
+      drawerContent={DrawerMenu}
+      initialRouteName="main"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Drawer.Screen
+        options={{
+          drawerItemStyle: { display: "none" },
         }}
-        screenOptions={{
-          headerShown: false,
+        name="main"
+        component={StoreFrontRoutes}
+      />
+      <Drawer.Screen
+        options={{ drawerLabel: "My Profile", drawerIcon: () => <ProfileIcon /> }}
+        name="myProfile"
+        component={MyProfileRoutes}
+      />
+      <Drawer.Screen
+        options={{
+          drawerLabel: "My WishList",
+          drawerIcon: () => <HeartFilledIcon />,
         }}
-      >
-        <Drawer.Screen
-          options={{
-            drawerItemStyle: { height: 0 },
-          }}
-          name={routes.main.root}
-          component={StoreFrontRoutes}
-        />
-        <Drawer.Screen
-          options={{ drawerLabel: "My Profile", drawerIcon: () => <ProfileIcon /> }}
-          name={routes.myProfile.root}
-          component={MyProfileRoutes}
-        />
-        <Drawer.Screen
-          options={{
-            drawerLabel: "My WishList",
-            drawerIcon: () => <HeartFilledIcon />,
-          }}
-          name={routes.myWishlist.root}
-          component={MyWishListRoutes}
-        />
-        <Drawer.Screen
-          options={{
-            drawerLabel: "My Cart",
-            drawerIcon: () => <ShoppingBagIcon color={COLOR_TEXT_BLUE} />,
-          }}
-          name={routes.myCart.root}
-          component={MyCartRoutes}
-        />
-        <Drawer.Screen
-          options={{
-            drawerLabel: "My Orders",
-            drawerIcon: () => <ShoppingBagFilledIcon />,
-          }}
-          name={routes.myOrders.root}
-          component={MyOrdersRoutes}
-        />
-      </Drawer.Navigator>
-    </NavigationContainer>
+        name="myWishlist"
+        component={MyWishListRoutes}
+      />
+      <Drawer.Screen
+        options={{
+          drawerLabel: "My Cart",
+          drawerIcon: () => <ShoppingBagIcon color={COLOR_TEXT_BLUE} />,
+        }}
+        name="myCart"
+        component={MyCartRoutes}
+      />
+      <Drawer.Screen
+        options={{
+          drawerLabel: "My Orders",
+          drawerIcon: () => <ShoppingBagFilledIcon />,
+        }}
+        name="myOrders"
+        component={MyOrdersRoutes}
+      />
+    </Drawer.Navigator>
   );
 };

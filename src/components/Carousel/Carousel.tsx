@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  SafeAreaView,
   ScrollView,
   Text,
   View,
@@ -47,7 +46,7 @@ export const Carousel = ({
   }, [currentActiveIndex, scrollRef]);
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <View style={[styles.container]}>
       {showArrows && (
         <>
           {currentActiveIndex !== 0 && (
@@ -167,6 +166,6 @@ export const Carousel = ({
           </Animated.View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };

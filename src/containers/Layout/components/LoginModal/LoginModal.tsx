@@ -156,7 +156,7 @@ export const LoginModal = (props: NavigationProp) => {
         color="gray"
       />
       {requestStatuses?.[URLNames.login].status === RequestStatus.SUCCESS && (
-        <Fireworks density={5} zIndex={2} speed={3} numOfPieces={10} />
+        <Fireworks density={5} speed={3} numOfPieces={10} />
       )}
     </Modal>
   );

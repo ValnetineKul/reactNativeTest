@@ -1,22 +1,18 @@
 import React from "react";
 import { StatusBar, useColorScheme, View } from "react-native";
-import { COLOR_TEXT_BLACK, COLOR_TEXT_WHITE } from "../../theme";
 import { Routes } from "../Routes";
 
 export const Layout = () => {
   const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? COLOR_TEXT_BLACK : COLOR_TEXT_WHITE,
     flex: 1,
+    backGroundColor: "red",
   };
 
   return (
     <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? "light-content" : "dark-content"}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <Routes />
     </View>
   );

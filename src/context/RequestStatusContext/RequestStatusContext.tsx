@@ -58,6 +58,7 @@ export const RequestStatusContextProvider = ({ children }: PropsWithChildren) =>
         status: RequestStatus.REQUEST,
       },
     });
+
     try {
       const result = await request();
 

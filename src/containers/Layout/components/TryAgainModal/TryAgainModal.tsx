@@ -9,6 +9,7 @@ import { RouteProp } from "@react-navigation/native";
 export type TryAgainModalProps = {
   route?: RouteProp<{
     params?: {
+      actionButtonText?: string;
       errorMessage?: string;
       onTryAgainPress?: () => void;
     };
@@ -33,7 +34,10 @@ export const TryAgainModal = (props: TryAgainModalProps) => {
           title="CANCEL"
           color="red"
         />
-        <Button onPress={handleTryAgainPress} title="TRY AGAIN" />
+        <Button
+          onPress={handleTryAgainPress}
+          title={route?.params?.actionButtonText || "TRY AGAIN"}
+        />
       </View>
     </Modal>
   );

@@ -16,6 +16,7 @@ import {
   initialFormValues,
   validationSchema,
 } from "./SignUpModal.helper";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 export const SignUpModal = (props: NavigationProp) => {
   const { navigation } = props;
@@ -36,8 +37,8 @@ export const SignUpModal = (props: NavigationProp) => {
     async (values: typeof initialFormValues) => {
       const { fullName, emailAddress, password, confirmPassword } = values;
 
-      if (handleSignUp) {
-        handleSignUp({
+      const handleSignUpWithData = () =>
+        handleSignUp?.({
           firstName: fullName,
           lastName: "",
           email: emailAddress,
@@ -50,9 +51,22 @@ export const SignUpModal = (props: NavigationProp) => {
             hasAbandonedCart: false,
           },
         });
-      }
+
+      NetInfo.fetch().then((state: NetInfoState) => {
+        console.log(state);
+        const offline = !(state.isConnected && state.isInternetReachable);
+
+        if (offline) {
+          navigation?.navigate(modalRoutes.tryAgain, {
+            onTryAgainPress: () => handleSubmitForm(values),
+            errorMessage: "No internet connection",
+          });
+        } else {
+          handleSignUpWithData();
+        }
+      });
     },
-    [handleSignUp]
+    [handleSignUp, navigation]
   );
 
   const handleSuccessSignUp = useCallback(() => {
