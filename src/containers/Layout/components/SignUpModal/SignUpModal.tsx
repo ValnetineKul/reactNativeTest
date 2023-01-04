@@ -53,7 +53,6 @@ export const SignUpModal = (props: NavigationProp) => {
         });
 
       NetInfo.fetch().then((state: NetInfoState) => {
-        console.log(state);
         const offline = !(state.isConnected && state.isInternetReachable);
 
         if (offline) {

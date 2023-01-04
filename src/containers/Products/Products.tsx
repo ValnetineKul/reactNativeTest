@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
 import { baseApi } from "../../api";
 import { Card, Input, Loader } from "../../components";
 import { SearchIcon } from "../../theme/icons";
@@ -41,8 +40,12 @@ export const Products = ({ navigation }: ProductsProps<"main/products">) => {
     getProducts();
   }, []);
 
+  if (isLoading) {
+    return <Loader fullScreen />;
+  }
+
   return (
-    <View>
+    <>
       <Card variant="horizontalFull" style={styles.inputContainer}>
         <Input onChange={() => {}} value="" startAdorment={<SearchIcon />} />
       </Card>
@@ -56,6 +59,6 @@ export const Products = ({ navigation }: ProductsProps<"main/products">) => {
           isLoading={isLoading}
         />
       )}
-    </View>
+    </>
   );
 };

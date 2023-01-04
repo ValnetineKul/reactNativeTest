@@ -1,12 +1,16 @@
 import React, {
   Dispatch,
   PropsWithChildren,
+  useCallback,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
+  useState,
 } from "react";
-import { RequestStatus } from "../../types";
+import { Nullable, RequestStatus } from "../../types";
 import { URL } from "../../constants";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 const initialRequestStatuses: Record<string, { status: RequestStatus; err?: any }> =
   Object.keys(URL).reduce((reqObj, currentValue) => {
@@ -28,6 +32,9 @@ export type RequestStatusContextType = {
     request: () => Promise<T>,
     name: string
   ) => Promise<T>;
+  isOnline?: boolean;
+  setOnline?: (isOnline: boolean) => void;
+  recheckConnection?: () => void;
 };
 
 const reducer = (
@@ -47,6 +54,7 @@ export const RequestStatusContext = React.createContext({});
 
 export const RequestStatusContextProvider = ({ children }: PropsWithChildren) => {
   const [requestStatuses, dispatch] = useReducer(reducer, initialRequestStatuses);
+  const [isOnline, setOnline] = useState<Nullable<boolean>>(true);
 
   const updateRequestStatusCall = async (
     request: <T>() => Promise<T>,
@@ -81,14 +89,34 @@ export const RequestStatusContextProvider = ({ children }: PropsWithChildren) =>
     }
   };
 
+  const recheckConnection = useCallback(() => {
+    setOnline(null);
+    NetInfo.fetch().then((state: NetInfoState) => {
+      setOnline(state.isConnected && state.isInternetReachable);
+    });
+  }, []);
+
   const currentRequestsContext = useMemo(
     () => ({
       requestStatuses,
       dispatch,
       updateRequestStatusCall,
+      isOnline,
+      setOnline,
+      recheckConnection,
     }),
-    [requestStatuses]
+    [isOnline, recheckConnection, requestStatuses]
   );
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
+      setOnline(state.isConnected && state.isInternetReachable);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <RequestStatusContext.Provider value={currentRequestsContext}>
