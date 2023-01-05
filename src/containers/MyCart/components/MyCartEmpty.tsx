@@ -13,6 +13,10 @@ export const MyCartEmpty = ({ navigation }: MyCartEmptyProps) => {
     navigation?.navigate(routes.main.products);
   };
 
+  const handleOrderConfirmationNav = () => {
+    navigation?.navigate(routes.myCart.orderConfirmation);
+  };
+
   return (
     <>
       <Image source={images.box} />
@@ -27,6 +31,12 @@ export const MyCartEmpty = ({ navigation }: MyCartEmptyProps) => {
         style={styles.actionButton}
         fullWidth
         onPress={handleShopNowPress}
+      />
+      <Button
+        title="TO ORDER CONFIRMATION"
+        style={styles.actionButton}
+        fullWidth
+        onPress={handleOrderConfirmationNav}
       />
     </>
   );

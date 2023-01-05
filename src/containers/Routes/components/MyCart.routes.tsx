@@ -1,37 +1,38 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { routes } from "../../../constants";
 import { COLOR_TEXT_WHITE } from "../../../theme";
-import { Header, Typography } from "../../../components";
+import { Header } from "../../../components";
 import { MyCart } from "../../MyCart";
-import { MyCartLoginContainer } from "../../MyCartLogin";
 import { useAuthContext } from "../../../context";
+import { OrderConfirmation } from "../../MyCart/components";
+import { MyCartLoginContainer } from "../../MyCartLogin";
+import { MyCartStackParamList } from "../../../types/routes";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MyCartStackParamList>();
 
 export const MyCartRoutes = () => {
   const { loginData } = useAuthContext();
   return (
     <Stack.Navigator
-      initialRouteName={routes.myCart.cart}
+      initialRouteName="myCart/cart"
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },
       }}
     >
       {loginData ? (
-        <Stack.Screen name={routes.myCart.cart} component={MyCart} />
+        <Stack.Screen name="myCart/cart" component={MyCart} />
       ) : (
-        <Stack.Screen
-          name={routes.myCart.loginRequired}
-          component={MyCartLoginContainer}
-        />
+        <Stack.Screen name="myCart/loginRequired" component={MyCartLoginContainer} />
       )}
       <Stack.Screen
-        name={routes.myCart.orderConfirmation}
-        component={() => <Typography>Order confirmation</Typography>}
+        name="myCart/orderConfirmation"
+        component={OrderConfirmation}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

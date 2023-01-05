@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   labelContainer: {
     position: "absolute",
-    top: -10,
+    top: 8,
     left: 14,
     paddingHorizontal: 4,
     backgroundColor: COLOR_TEXT_WHITE,

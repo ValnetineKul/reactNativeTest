@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
   title: {
     fontWeight: FontWeights.fontWeightMedium,
     textAlign: "center",
-    lineHeight: 18,
   },
   startAdorment: {
     marginRight: 16,

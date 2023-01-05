@@ -1,33 +1,32 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { routes } from "../../../constants";
 import { COLOR_TEXT_WHITE } from "../../../theme";
 import { Header, Typography } from "../../../components";
 import { MyCartLoginContainer } from "../../MyCartLogin";
 import { useAuthContext } from "../../../context";
+import { MyOrdersStackParamList } from "../../../types/routes";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<MyOrdersStackParamList>();
+
+const Mock = () => <Typography>My orders</Typography>;
 
 export const MyOrdersRoutes = () => {
   const { loginData } = useAuthContext();
   return (
     <Stack.Navigator
-      initialRouteName={routes.myOrders.orders}
+      initialRouteName="myOrders/orders"
       screenOptions={{
-        header: Header,
+        header: () => <Header />,
         contentStyle: {
           backgroundColor: COLOR_TEXT_WHITE,
         },
       }}
     >
       {loginData ? (
-        <Stack.Screen
-          name={routes.myOrders.orders}
-          component={() => <Typography>My orders</Typography>}
-        />
+        <Stack.Screen name="myOrders/orders" component={Mock} />
       ) : (
         <Stack.Screen
-          name={routes.myOrders.loginRequired}
+          name="myOrders/loginRequired"
           component={MyCartLoginContainer}
         />
       )}

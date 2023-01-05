@@ -12,12 +12,18 @@ import React from "react";
 
 import { Layout } from "./src/containers";
 import { AuthProvider } from "./src/context";
+import { RequestStatusContextProvider } from "./src/context/RequestStatusContext";
+import { NavigationContainer } from "@react-navigation/native";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Layout />
-    </AuthProvider>
+    <NavigationContainer>
+      <RequestStatusContextProvider>
+        <AuthProvider>
+          <Layout />
+        </AuthProvider>
+      </RequestStatusContextProvider>
+    </NavigationContainer>
   );
 };
 

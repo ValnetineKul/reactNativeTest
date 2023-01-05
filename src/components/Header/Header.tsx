@@ -7,11 +7,9 @@ import { BurgerButton } from "../BurgerButton";
 import { Typography } from "../Typography";
 import { getHeaderType } from "./Header.helpers";
 import { styles } from "./Header.styles";
-import { useAuthContext } from "../../context";
 
 export const Header = () => {
   const navigation = useNavigation();
-  const { loginData } = useAuthContext();
 
   const { name } = useRoute();
 
@@ -26,9 +24,7 @@ export const Header = () => {
   }, [navigation]);
 
   const handleShoppingBagPress = () => {
-    navigation.navigate(
-      routes.myCart[loginData ? "root" : "loginRequired"] as never
-    );
+    navigation.navigate(routes.myCart.root);
   };
 
   return (
