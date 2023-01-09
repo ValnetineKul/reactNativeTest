@@ -1,21 +1,12 @@
 import { Formik } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import {
-  ApiCallAnimatedButton,
-  Input,
-  Modal,
-  Typography,
-} from "../../../../components";
+import { ApiCallAnimatedButton, Input, Modal, Typography } from "../../../../components";
 import { URLNames, modalRoutes, routes } from "../../../../constants";
 import { useAuthContext, useRequestStatusContext } from "../../../../context";
 import { NavigationProp, RequestStatus } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
-import {
-  formHelper,
-  initialFormValues,
-  validationSchema,
-} from "./SignUpModal.helper";
+import { formHelper, initialFormValues, validationSchema } from "./SignUpModal.helper";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
 export const SignUpModal = (props: NavigationProp) => {
@@ -110,16 +101,7 @@ export const SignUpModal = (props: NavigationProp) => {
           handleSubmitForm(values);
         }}
       >
-        {({
-          handleChange,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-          dirty,
-          touched,
-          setFieldTouched,
-        }) => {
+        {({ handleChange, handleSubmit, values, errors, isValid, dirty, touched, setFieldTouched }) => {
           return (
             <>
               {formHelper.map(({ id, label, type }, index) => {
@@ -138,9 +120,7 @@ export const SignUpModal = (props: NavigationProp) => {
               })}
               <ApiCallAnimatedButton
                 onPress={() => {
-                  if (
-                    requestStatuses?.[URLNames.signUp].status === RequestStatus.ERROR
-                  ) {
+                  if (requestStatuses?.[URLNames.signUp].status === RequestStatus.ERROR) {
                     resetRequest();
                     return;
                   }

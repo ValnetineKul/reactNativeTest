@@ -10,18 +10,10 @@ type CardProps = {
   discount?: string;
 };
 
-export const Price = ({
-  currency = "$",
-  price,
-  oldPrice,
-  discount,
-}: PropsWithChildren<CardProps>) => {
+export const Price = ({ currency = "$", price, oldPrice, discount }: PropsWithChildren<CardProps>) => {
   return (
     <View style={styles.priceContainer}>
-      <Typography
-        variant="body2"
-        style={styles.marginProvider}
-      >{`${currency}${price}`}</Typography>
+      <Typography variant="body2" style={styles.marginProvider}>{`${currency}${price}`}</Typography>
       {oldPrice && (
         <Typography variant="body2" color="gray" style={styles.marginProvider}>
           {`${currency}${oldPrice}`}

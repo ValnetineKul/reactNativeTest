@@ -4,16 +4,17 @@ import { styles } from "./Loader.styles";
 import { getDotMargin } from "./Loader.helpers";
 
 type LoaderProps = {
+  color?: "white" | "blue";
   fullScreen?: boolean;
   style?:
     | false
-    | Animated.Value
-    | Animated.AnimatedInterpolation<string | number>
-    | RegisteredStyle<ViewStyle>
-    | Animated.WithAnimatedObject<ViewStyle>;
+    | Animated.Value[]
+    | Animated.AnimatedInterpolation<string | number>[]
+    | RegisteredStyle<ViewStyle>[]
+    | Animated.WithAnimatedObject<ViewStyle>[];
 };
 
-export const Loader = ({ fullScreen, style }: LoaderProps) => {
+export const Loader = ({ fullScreen, color = "white", style }: LoaderProps) => {
   const bounceAnimation = useRef({
     1: new Animated.Value(0),
     2: new Animated.Value(0),
@@ -72,28 +73,21 @@ export const Loader = ({ fullScreen, style }: LoaderProps) => {
     outputRange: [0, -8, 0],
   };
   return (
-    <Animated.View
-      style={[
-        styles.loaderContainer,
-        { ...(fullScreen && styles.fullScreenContainer) },
-        style,
-      ]}
-    >
+    <Animated.View style={[styles.loaderContainer, { ...(fullScreen && styles.fullScreenContainer) }, style]}>
       {new Array(3).fill("").map((_, index) => {
         return (
           <Animated.View
             key={index}
             style={[
               styles.loaderDot,
+              styles[color],
               { ...(fullScreen && styles.fullScreenDot) },
               // eslint-disable-next-line react-native/no-inline-styles
               {
                 transform: [
                   {
                     // @ts-expect-error: will not overshoot
-                    translateY: bounceAnimation[index + 1].interpolate(
-                      rotateInterpolateRanges
-                    ),
+                    translateY: bounceAnimation[index + 1].interpolate(rotateInterpolateRanges),
                   },
                   {
                     scale: fullScreen ? 3 : 1,

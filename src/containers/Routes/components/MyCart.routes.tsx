@@ -11,7 +11,7 @@ import { MyCartStackParamList } from "../../../types/routes";
 const Stack = createNativeStackNavigator<MyCartStackParamList>();
 
 export const MyCartRoutes = () => {
-  const { loginData } = useAuthContext();
+  const { authData } = useAuthContext();
   return (
     <Stack.Navigator
       initialRouteName="myCart/cart"
@@ -22,7 +22,7 @@ export const MyCartRoutes = () => {
         },
       }}
     >
-      {loginData ? (
+      {authData ? (
         <Stack.Screen name="myCart/cart" component={MyCart} />
       ) : (
         <Stack.Screen name="myCart/loginRequired" component={MyCartLoginContainer} />

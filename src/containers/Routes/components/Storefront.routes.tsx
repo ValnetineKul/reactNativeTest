@@ -1,13 +1,14 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ProductDetails } from "../../ProductDetails";
-import { Products } from "../../Products";
-import { COLOR_TEXT_WHITE, Header, Typography } from "../../../components";
+import { Products, Search } from "../..";
+import { COLOR_TEXT_WHITE, Header } from "../../../components";
 import {
   ChooseColorModal,
   ForgotPasswordModal,
   LoginModal,
   LoginRequiredModal,
+  LogoutModal,
   ProductAddedModal,
   ProductRemovedModal,
   SignUpModal,
@@ -16,8 +17,6 @@ import {
 import { MainStackParamList } from "../../../types/routes";
 
 const Stack = createStackNavigator<MainStackParamList>();
-
-const Mock = () => <Typography>Search</Typography>;
 
 export const StoreFrontRoutes = () => {
   return (
@@ -32,7 +31,7 @@ export const StoreFrontRoutes = () => {
     >
       <Stack.Screen name="main/products" component={Products} />
       <Stack.Screen name="main/product" component={ProductDetails} />
-      <Stack.Screen name="main/search" component={Mock} />
+      <Stack.Screen name="main/search" component={Search} />
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="auth/login" component={LoginModal} />
         <Stack.Screen name="auth/signUp" component={SignUpModal} />
@@ -49,6 +48,7 @@ export const StoreFrontRoutes = () => {
         <Stack.Screen name="productAdded" component={ProductAddedModal} />
         <Stack.Screen name="productRemoved" component={ProductRemovedModal} />
         <Stack.Screen name="tryAgain" component={TryAgainModal} />
+        <Stack.Screen name="logout" component={LogoutModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

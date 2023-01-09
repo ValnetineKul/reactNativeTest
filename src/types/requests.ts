@@ -1,6 +1,7 @@
 export type GetProductsReq = {
   page?: number;
   perPage?: number;
+  "filter[name]"?: string;
 };
 
 export type GetProductDetailsReq = {
@@ -24,4 +25,15 @@ export type SignUpReq = {
 export type LoginReq = {
   username: string;
   password: string;
+};
+
+export type UpdateAccountReq = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  selectedLocale?: string;
+  billAddressId?: string;
+  shipAddressId?: string;
+  password?: string;
+  passwordConfirmation?: string;
 };
