@@ -1,5 +1,6 @@
-import axios, { AxiosResponse, AxiosRequestConfig, AxiosInstance } from "axios";
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosInstance, RawAxiosRequestHeaders } from "axios";
 import {
+  AccountRes,
   GetProductDetailsReq,
   GetProductsReq,
   LoginReq,
@@ -7,6 +8,7 @@ import {
   ProductRes,
   ProductsRes,
   SignUpReq,
+  UpdateAccountReq,
 } from "../types";
 import { URL } from "../constants";
 import { snakeize } from "../utils";
@@ -25,22 +27,18 @@ export default async function ajax(requestConfig: AxiosRequestConfig) {
 }
 
 export const baseApi = {
-  getProducts({
-    page,
-    perPage,
-  }: GetProductsReq): Promise<AxiosResponse<ProductsRes>> {
+  getProducts(params: GetProductsReq): Promise<AxiosResponse<ProductsRes>> {
     return ajax({
       method: "get",
       url: URL.products,
       params: {
-        page: page || 1,
-        per_page: perPage || 24,
+        page: params?.page || 1,
+        per_page: params?.perPage || 24,
+        ...params,
       },
     });
   },
-  getProductDetails({
-    id,
-  }: GetProductDetailsReq): Promise<AxiosResponse<ProductRes>> {
+  getProductDetails({ id }: GetProductDetailsReq): Promise<AxiosResponse<ProductRes>> {
     return ajax({
       method: "get",
       url: URL.productDetails(id),
@@ -70,6 +68,29 @@ export const baseApi = {
         ...snakeiezedUserData,
         grant_type: "password",
       },
+    });
+  },
+  getAccount(headers: RawAxiosRequestHeaders): Promise<AxiosResponse<AccountRes>> {
+    return ajax({
+      method: "get",
+      url: URL.getAccount,
+      headers,
+    });
+  },
+  updateAccount(
+    updatedAccountData: UpdateAccountReq,
+    headers: RawAxiosRequestHeaders
+  ): Promise<AxiosResponse<AccountRes>> {
+    const snakeiezedUserData = snakeize(updatedAccountData);
+    return ajax({
+      method: "patch",
+      url: URL.getAccount,
+      data: {
+        user: {
+          ...snakeiezedUserData,
+        },
+      },
+      headers,
     });
   },
 };

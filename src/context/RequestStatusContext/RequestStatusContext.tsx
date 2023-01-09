@@ -12,8 +12,8 @@ import { Nullable, RequestStatus } from "../../types";
 import { URL } from "../../constants";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 
-const initialRequestStatuses: Record<string, { status: RequestStatus; err?: any }> =
-  Object.keys(URL).reduce((reqObj, currentValue) => {
+const initialRequestStatuses: Record<string, { status: RequestStatus; err?: any }> = Object.keys(URL).reduce(
+  (reqObj, currentValue) => {
     reqObj = {
       ...reqObj,
       [currentValue]: {
@@ -21,17 +21,16 @@ const initialRequestStatuses: Record<string, { status: RequestStatus; err?: any 
       },
     };
     return reqObj;
-  }, {});
+  },
+  {}
+);
 
 export type Action<T, P = any, M = void> = { type: T; payload: P; meta?: M };
 
 export type RequestStatusContextType = {
   requestStatuses?: typeof initialRequestStatuses;
   dispatch?: Dispatch<Action<string, { status: RequestStatus; err?: any }, void>>;
-  updateRequestStatusCall?: <T>(
-    request: () => Promise<T>,
-    name: string
-  ) => Promise<T>;
+  updateRequestStatusCall?: <T>(request: () => Promise<T>, name: string, onError?: () => void) => Promise<T>;
   isOnline?: boolean;
   setOnline?: (isOnline: boolean) => void;
   recheckConnection?: () => void;
@@ -56,38 +55,39 @@ export const RequestStatusContextProvider = ({ children }: PropsWithChildren) =>
   const [requestStatuses, dispatch] = useReducer(reducer, initialRequestStatuses);
   const [isOnline, setOnline] = useState<Nullable<boolean>>(true);
 
-  const updateRequestStatusCall = async (
-    request: <T>() => Promise<T>,
-    name: string
-  ) => {
-    dispatch({
-      type: name,
-      payload: {
-        status: RequestStatus.REQUEST,
-      },
-    });
-
-    try {
-      const result = await request();
-
+  const updateRequestStatusCall = useCallback(
+    async (request: <T>() => Promise<T>, name: string, onError?: () => void) => {
       dispatch({
         type: name,
         payload: {
-          status: RequestStatus.SUCCESS,
+          status: RequestStatus.REQUEST,
         },
       });
-      return result;
-    } catch (error) {
-      dispatch({
-        type: name,
-        payload: {
-          status: RequestStatus.ERROR,
-          err: error,
-        },
-      });
-      throw error;
-    }
-  };
+
+      try {
+        const result = await request();
+
+        dispatch({
+          type: name,
+          payload: {
+            status: RequestStatus.SUCCESS,
+          },
+        });
+
+        return result;
+      } catch (error) {
+        onError?.();
+        dispatch({
+          type: name,
+          payload: {
+            status: RequestStatus.ERROR,
+            err: error,
+          },
+        });
+      }
+    },
+    []
+  );
 
   const recheckConnection = useCallback(() => {
     setOnline(null);
@@ -105,7 +105,7 @@ export const RequestStatusContextProvider = ({ children }: PropsWithChildren) =>
       setOnline,
       recheckConnection,
     }),
-    [isOnline, recheckConnection, requestStatuses]
+    [isOnline, recheckConnection, requestStatuses, updateRequestStatusCall]
   );
 
   useEffect(() => {
@@ -119,9 +119,7 @@ export const RequestStatusContextProvider = ({ children }: PropsWithChildren) =>
   }, []);
 
   return (
-    <RequestStatusContext.Provider value={currentRequestsContext}>
-      {children}
-    </RequestStatusContext.Provider>
+    <RequestStatusContext.Provider value={currentRequestsContext}>{children}</RequestStatusContext.Provider>
   );
 };
 

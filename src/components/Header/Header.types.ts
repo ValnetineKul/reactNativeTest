@@ -1,1 +1,1 @@
-export type HeaderType = "main" | "productDetails" | "myCart";
+export type HeaderType = "main" | "productDetails" | "myCart" | "myProfile" | "search";

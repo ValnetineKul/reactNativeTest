@@ -34,6 +34,6 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
   return <CartContext.Provider value={currentCart}>{children}</CartContext.Provider>;
 };
 
-export const useAuthContext = (): AuthInfo => {
+export const useCartContext = (): AuthInfo => {
   return useContext(CartContext) ?? {};
 };

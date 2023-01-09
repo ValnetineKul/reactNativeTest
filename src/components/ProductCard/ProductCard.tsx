@@ -13,7 +13,8 @@ type CardProps = {
   currency?: string;
   discount?: string;
   imageSrc: string;
-  style?: ViewStyle | ViewStyle[];
+  style?: ViewStyle[];
+  fullWidth?: boolean;
 };
 
 export const ProductCard = ({
@@ -24,24 +25,26 @@ export const ProductCard = ({
   discount,
   imageSrc,
   style,
+  fullWidth,
 }: PropsWithChildren<CardProps>) => {
   return (
-    <Card variant={CardVariants.default} shadowBox style={style}>
-      <View style={styles.imageContainer}>
+    <Card
+      variant={CardVariants.default}
+      shadowBox
+      style={[...(style || []), ...(fullWidth ? [styles.fullWidthProductCard] : [])]}
+    >
+      <View style={[styles.imageContainer, ...(fullWidth ? [styles.fullWidthImageContainer] : [])]}>
         <Image
-          style={styles.image}
+          style={[styles.image, ...(fullWidth ? [styles.coverImage] : [])]}
           source={{
             uri: imageSrc,
           }}
         />
       </View>
-      <Typography variant="body1">{name}</Typography>
-      <Price
-        price={price}
-        oldPrice={oldPrice}
-        currency={currency}
-        discount={discount}
-      />
+      <View style={[...(fullWidth ? [styles.fullWidthDescriptionContainer] : [])]}>
+        <Typography variant="body1">{name}</Typography>
+        <Price price={price} oldPrice={oldPrice} currency={currency} discount={discount} />
+      </View>
     </Card>
   );
 };

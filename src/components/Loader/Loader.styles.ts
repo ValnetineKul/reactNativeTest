@@ -15,12 +15,17 @@ export const styles = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 50,
-    backgroundColor: COLOR_TEXT_WHITE,
   },
   fullScreenContainer: {
     backgroundColor: COLOR_LIGHT_GRAY,
   },
   fullScreenDot: {
+    backgroundColor: COLOR_TEXT_BLUE,
+  },
+  white: {
+    backgroundColor: COLOR_TEXT_WHITE,
+  },
+  blue: {
     backgroundColor: COLOR_TEXT_BLUE,
   },
 });

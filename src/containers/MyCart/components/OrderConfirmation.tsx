@@ -27,8 +27,8 @@ export const OrderConfirmation = ({ navigation }: OrderConfirmationProps) => {
         Thank you for placing your order with us!
       </Typography>
       <Typography color="gray" style={styles.subTitle}>
-        Please check your email for more details. For any questions and further
-        information please contact our customer support.
+        Please check your email for more details. For any questions and further information please contact our
+        customer support.
       </Typography>
       <Button
         title="CONTINUE SHOPPING"

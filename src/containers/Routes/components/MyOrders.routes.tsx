@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator<MyOrdersStackParamList>();
 const Mock = () => <Typography>My orders</Typography>;
 
 export const MyOrdersRoutes = () => {
-  const { loginData } = useAuthContext();
+  const { authData } = useAuthContext();
   return (
     <Stack.Navigator
       initialRouteName="myOrders/orders"
@@ -22,13 +22,10 @@ export const MyOrdersRoutes = () => {
         },
       }}
     >
-      {loginData ? (
+      {authData ? (
         <Stack.Screen name="myOrders/orders" component={Mock} />
       ) : (
-        <Stack.Screen
-          name="myOrders/loginRequired"
-          component={MyCartLoginContainer}
-        />
+        <Stack.Screen name="myOrders/loginRequired" component={MyCartLoginContainer} />
       )}
     </Stack.Navigator>
   );

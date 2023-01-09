@@ -8,13 +8,32 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { routes } from "../../../../constants";
-import { Linking } from "react-native";
+import { Linking, Share } from "react-native";
 import { EmailIcon, PhoneIcon, ShareIcon } from "../../../../theme/icons";
 import { mockSupportMail, mockPhoneNumber } from "./Drawer.helpers";
 
 export const DrawerMenu = (props: DrawerContentComponentProps) => {
   const handleTitlePress = () => {
     props.navigation.navigate(routes.main.products);
+  };
+
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message: "React Native | A framework for building native apps using React",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log("activity type");
+        } else {
+          console.log("shared");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log("dismissed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <DrawerContentScrollView>
@@ -51,7 +70,7 @@ export const DrawerMenu = (props: DrawerContentComponentProps) => {
       />
       <Divider style={[styles.dividerMargin]} />
       <DrawerItem
-        onPress={() => console.log("SHARE")}
+        onPress={handleShare}
         label={() => <Typography>Share</Typography>}
         icon={() => <ShareIcon />}
       />

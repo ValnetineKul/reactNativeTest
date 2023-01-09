@@ -14,12 +14,7 @@ type ProductListProps = {
   isLoading: boolean;
 };
 
-export const ProductList = ({
-  products,
-  onProductClick,
-  getProducts,
-  isLoading,
-}: ProductListProps) => {
+export const ProductList = ({ products, onProductClick, getProducts, isLoading }: ProductListProps) => {
   return (
     <FlatList
       data={products}
@@ -40,9 +35,7 @@ export const ProductList = ({
         );
       }}
       numColumns={2}
-      refreshControl={
-        <RefreshControl refreshing={isLoading} onRefresh={getProducts} />
-      }
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={getProducts} />}
     />
   );
 };

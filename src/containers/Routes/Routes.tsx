@@ -1,20 +1,9 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import {
-  DrawerMenu,
-  MyCartRoutes,
-  MyOrdersRoutes,
-  MyWishListRoutes,
-  StoreFrontRoutes,
-} from "./components";
+import { DrawerMenu, MyCartRoutes, MyOrdersRoutes, MyWishListRoutes, StoreFrontRoutes } from "./components";
 import { COLOR_TEXT_BLUE } from "../../components";
 import { MyProfileRoutes } from "./components/MyProfile.routes";
-import {
-  HeartFilledIcon,
-  ProfileIcon,
-  ShoppingBagFilledIcon,
-  ShoppingBagIcon,
-} from "../../theme/icons";
+import { HeartFilledIcon, ProfileIcon, ShoppingBagFilledIcon, ShoppingBagIcon } from "../../theme/icons";
 import { RootDrawerParamList } from "../../types/routes";
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();

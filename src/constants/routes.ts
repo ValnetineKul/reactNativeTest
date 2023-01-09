@@ -4,7 +4,7 @@ export const routes = {
     products: "main/products",
     search: "main/search",
     drawerMain: "main/drawer",
-    productDetails: "main/product/:id",
+    productDetails: "main/product",
   },
   myProfile: {
     root: "myProfile",
@@ -38,4 +38,5 @@ export const modalRoutes = {
   productAdded: "productAdded",
   productRemoved: "productRemoved",
   tryAgain: "tryAgain",
+  logout: "logout",
 };

@@ -1,7 +1,6 @@
 import { DrawerActions, useNavigation, useRoute } from "@react-navigation/native";
 import React, { useCallback } from "react";
 import { SafeAreaView, TouchableOpacity, View } from "react-native";
-import { routes } from "../../constants";
 import { ArrowLeftIcon, HeartIcon, ShoppingBagIcon } from "../../theme/icons";
 import { BurgerButton } from "../BurgerButton";
 import { Typography } from "../Typography";
@@ -24,7 +23,7 @@ export const Header = () => {
   }, [navigation]);
 
   const handleShoppingBagPress = () => {
-    navigation.navigate(routes.myCart.root);
+    navigation.navigate("myCart");
   };
 
   return (
@@ -36,20 +35,14 @@ export const Header = () => {
             <Typography style={styles.title} variant="h6" color="white">
               Ecommerce store
             </Typography>
-            <TouchableOpacity
-              style={[styles.rightControls]}
-              onPress={handleShoppingBagPress}
-            >
+            <TouchableOpacity style={[styles.rightControls]} onPress={handleShoppingBagPress}>
               <ShoppingBagIcon />
             </TouchableOpacity>
           </>
         )}
         {headerType === "productDetails" && (
           <>
-            <TouchableOpacity
-              style={[styles.leftControls]}
-              onPress={handlePressBack}
-            >
+            <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
               <ArrowLeftIcon />
             </TouchableOpacity>
             <View style={[styles.iconContainer, styles.rightControls]}>
@@ -64,16 +57,40 @@ export const Header = () => {
         )}
         {headerType === "myCart" && (
           <>
-            <TouchableOpacity
-              style={[styles.leftControls]}
-              onPress={handlePressBack}
-            >
+            <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
               <ArrowLeftIcon />
             </TouchableOpacity>
             <Typography style={styles.title} variant="h6" color="white">
-              My cart
+              My Cart
             </Typography>
             <View />
+          </>
+        )}
+        {headerType === "myProfile" && (
+          <>
+            <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
+              <ArrowLeftIcon />
+            </TouchableOpacity>
+            <Typography style={styles.title} variant="h6" color="white">
+              My Profile
+            </Typography>
+            <TouchableOpacity style={[styles.rightControls]} onPress={handleShoppingBagPress}>
+              <ShoppingBagIcon />
+            </TouchableOpacity>
+          </>
+        )}
+
+        {headerType === "search" && (
+          <>
+            <TouchableOpacity style={[styles.leftControls]} onPress={handlePressBack}>
+              <ArrowLeftIcon />
+            </TouchableOpacity>
+            <Typography style={styles.title} variant="h6" color="white">
+              Search
+            </Typography>
+            <TouchableOpacity style={[styles.rightControls]} onPress={handleShoppingBagPress}>
+              <ShoppingBagIcon />
+            </TouchableOpacity>
           </>
         )}
       </View>

@@ -6,6 +6,8 @@ export enum URLNames {
   createCart = "createCart",
   addToCart = "addToCart",
   removeFromCart = "removeFromCart",
+  getAccount = "getAccount",
+  updateAccount = "updateAccount",
 }
 
 export const URL = {
@@ -17,4 +19,6 @@ export const URL = {
   [URLNames.createCart]: "/api/v2/storefront/cart",
   [URLNames.addToCart]: "",
   [URLNames.removeFromCart]: "",
+  [URLNames.getAccount]: "/api/v2/storefront/account",
+  [URLNames.updateAccount]: "/api/v2/storefront/account",
 };
