@@ -32,6 +32,11 @@ export type MainStackParamList = {
 export type MyProfileStackParamList = {
   "myProfile/profile": undefined;
   loginRequired: undefined;
+  logout:
+    | {
+        onLogoutPress?: () => void;
+      }
+    | undefined;
 };
 
 export type MyWishListStackParamList = {

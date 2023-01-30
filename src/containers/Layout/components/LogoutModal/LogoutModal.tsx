@@ -8,7 +8,6 @@ import { MainStackProps } from "../../../../types/routes";
 export const LogoutModal = (props: MainStackProps<"logout">) => {
   const { navigation, route } = props;
   const handleTryAgainPress = () => {
-    navigation?.goBack();
     route?.params?.onLogoutPress?.();
   };
   return (

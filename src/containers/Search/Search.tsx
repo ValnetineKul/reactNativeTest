@@ -3,18 +3,20 @@ import { Input, ProductCard, Typography } from "../../components";
 import { styles } from "./Search.styles";
 import { TextInput, TouchableOpacity, View } from "react-native";
 import { SearchIcon } from "../../theme/icons";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import { mockProduct } from "../Products";
 import { Product, RequestStatus } from "../../types";
 import { useRequestStatusContext } from "../../context";
 import { URLNames } from "../../constants";
 import { baseApi } from "../../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const PAST_SEARCH_STORAGE_KEY = "pastSearch";
 const MAX_PAST_SEARCHES_STORED = 20;
 
 export const Search = () => {
+  const navigation = useNavigation();
   const { updateRequestStatusCall, requestStatuses, dispatch } = useRequestStatusContext();
   const inputRef = useRef<TextInput>(null);
   const [searchInputValue, setSearchInputValue] = useState("");
@@ -24,7 +26,7 @@ export const Search = () => {
   const [pastSearches, setPastSearches] = useState<string[]>([]);
 
   const handleInputChange = (text: string) => {
-    setShowPastSearch(!!text.length);
+    setShowPastSearch(true);
     setSearchInputValue(text);
   };
 
@@ -69,6 +71,19 @@ export const Search = () => {
     }
   };
 
+  const deleteSearchItem = async (searchIndex: number) => {
+    const rawPastSearches = await AsyncStorage.getItem(PAST_SEARCH_STORAGE_KEY);
+    let updatedPastSearches: string[] = [];
+    if (rawPastSearches) {
+      updatedPastSearches = JSON.parse(rawPastSearches);
+    }
+
+    updatedPastSearches.splice(searchIndex, 1);
+    setPastSearches(updatedPastSearches);
+
+    await AsyncStorage.setItem(PAST_SEARCH_STORAGE_KEY, JSON.stringify(updatedPastSearches));
+  };
+
   useEffect(() => {
     AsyncStorage.getItem(PAST_SEARCH_STORAGE_KEY).then((stringifiedPastSearches) => {
       if (stringifiedPastSearches) {
@@ -83,6 +98,7 @@ export const Search = () => {
 
   useEffect(() => {
     if (inputRef) {
+      setShowPastSearch(true);
       inputRef.current?.focus();
     }
 
@@ -96,7 +112,7 @@ export const Search = () => {
     };
   }, [dispatch]);
   return (
-    <ScrollView style={[styles.searchContainer]}>
+    <View style={[styles.searchContainer]}>
       <Input
         ref={inputRef}
         value={searchInputValue}
@@ -107,7 +123,7 @@ export const Search = () => {
       />
       {shouldShowPastSearch && (
         <View style={[styles.pastSearchesContainer]}>
-          {pastSearches.map((pastSearch) => {
+          {pastSearches.map((pastSearch, index) => {
             const regexp = new RegExp(searchInputValue.toLocaleLowerCase(), "ig");
             if (pastSearch.match(regexp)) {
               return (
@@ -117,27 +133,49 @@ export const Search = () => {
                   onPress={() => handleProductSearch(pastSearch)}
                 >
                   <Typography>{pastSearch}</Typography>
+                  <TouchableOpacity
+                    onPress={() => {
+                      deleteSearchItem(index);
+                    }}
+                    style={[styles.deleteButton]}
+                  >
+                    <Typography>delete</Typography>
+                  </TouchableOpacity>
                 </TouchableOpacity>
               );
             }
           })}
         </View>
       )}
-      <View style={[styles.productsContainer]}>
-        {searchedProducts.map(({ attributes, images, id }) => (
-          <ProductCard
-            key={id}
-            name={attributes.name}
-            price={attributes.price}
-            oldPrice={attributes.compare_at_price}
-            imageSrc={images?.data[0] || mockProduct.imageSrc}
-            fullWidth
-            style={[styles.productCard]}
-          />
-        ))}
-        {requestStatuses?.[URLNames.products].status === RequestStatus.SUCCESS &&
-          !searchedProducts.length && <Typography>No products found</Typography>}
-      </View>
-    </ScrollView>
+      <FlatList
+        data={searchedProducts}
+        renderItem={(product) => {
+          const { attributes, id, images } = product.item;
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("main", {
+                  screen: "main/product",
+                  params: {
+                    productId: id,
+                  },
+                });
+              }}
+              key={id}
+            >
+              <ProductCard
+                name={attributes.name}
+                price={attributes.price}
+                oldPrice={attributes.compare_at_price}
+                imageSrc={images?.data[0] || mockProduct.imageSrc}
+                fullWidth
+                style={[styles.productCard]}
+              />
+            </TouchableOpacity>
+          );
+        }}
+        contentContainerStyle={[styles.productsContainer]}
+      />
+    </View>
   );
 };

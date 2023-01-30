@@ -5,7 +5,7 @@ import { Header } from "../../../components";
 import { MyProfileStackParamList } from "../../../types/routes";
 import { MyProfile } from "../../MyProfile";
 import { useAuthContext } from "../../../context";
-import { LoginRequiredModal } from "../../Layout/components";
+import { LoginRequiredModal, LogoutModal } from "../../Layout/components";
 
 const Stack = createNativeStackNavigator<MyProfileStackParamList>();
 
@@ -32,6 +32,14 @@ export const MyProfileRoutes = () => {
           component={LoginRequiredModal}
         />
       )}
+      <Stack.Group
+        screenOptions={{
+          presentation: "modal",
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="logout" component={LogoutModal} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

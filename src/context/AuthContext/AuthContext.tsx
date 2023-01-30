@@ -6,7 +6,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage/src";
 import { useRequestStatusContext } from "../RequestStatusContext";
 import { AxiosResponse } from "axios";
 import { camelize } from "../../utils";
-import { useNavigation } from "@react-navigation/native";
 import { launchImageLibrary } from "react-native-image-picker";
 
 export type AuthInfo = {
@@ -35,15 +34,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [authData, setAuthData] = useState<Nullable<LoginRes>>(null);
   const [account, setAccount] = useState<Nullable<AccountRes & { imageUri?: string }>>(null);
 
-  const navigation = useNavigation();
-
   const handleLogout = useCallback(() => {
     setUserId(undefined);
     setAuthData(null);
     setAccount(null);
     AsyncStorage.multiRemove([USER_LOGIN_DATA_STORAGE_KEY]);
-    navigation.navigate("main");
-  }, [navigation]);
+  }, []);
 
   const handleLogin = useCallback(
     async (userData: LoginReq) => {

@@ -62,9 +62,19 @@ export const MyProfile = ({ navigation }: MyProfileStackProps<"myProfile/profile
   };
 
   const handleLogout = () => {
-    handleAuthLogout?.();
-    navigation.navigate("main", {
-      screen: "main/products",
+    navigation.navigate("myProfile", {
+      screen: "logout",
+      params: {
+        onLogoutPress: async () => {
+          navigation.goBack();
+          setTimeout(() => {
+            navigation.navigate("main", {
+              screen: "main/products",
+            });
+            handleAuthLogout?.();
+          }, 500);
+        },
+      },
     });
   };
 

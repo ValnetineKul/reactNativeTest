@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
     backgroundColor: COLOR_TEXT_WHITE,
     width: "100%",
     zIndex: 100,
-    top: 56,
+    top: 80,
+    left: 20,
     borderRadius: 4,
     shadowColor: COLOR_CARD_BOX_SHADOW,
     shadowOffset: { width: 2, height: 4 },
@@ -26,6 +27,12 @@ export const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   pastSearchItem: {
+    position: "relative",
     marginVertical: 4,
+  },
+
+  deleteButton: {
+    position: "absolute",
+    right: 8,
   },
 });
