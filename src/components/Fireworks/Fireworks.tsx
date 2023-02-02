@@ -133,14 +133,12 @@ export const Fireworks = ({
                 key={index}
                 style={[
                   styles.ball,
+                  // eslint-disable-next-line react-native/no-inline-styles
                   {
                     height: 7,
                     width: 7,
                     borderRadius: 3,
-                    transform: [
-                      { translateX: randomLefts[index] },
-                      { translateY: randomTops[index] },
-                    ],
+                    transform: [{ translateX: randomLefts[index] }, { translateY: randomTops[index] }],
                     // top: randomTops[index],
                     // left: randomLefts[index],
                     opacity: ballOpacity,
@@ -154,13 +152,7 @@ export const Fireworks = ({
       );
     }
     return null;
-  }, [
-    colors,
-    iterations,
-    movingBallAnimationValue,
-    numOfPieces,
-    opacityAnimationValue,
-  ]);
+  }, [colors, iterations, movingBallAnimationValue, numOfPieces, opacityAnimationValue]);
 
   useEffect(() => {
     setExplosionSpots(true);

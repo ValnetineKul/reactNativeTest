@@ -25,11 +25,7 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 
 const WIDTH = Dimensions.get("window").width;
 
-export const Carousel = ({
-  imagesUrls,
-  genericImageText,
-  showArrows,
-}: CarouselProps) => {
+export const Carousel = ({ imagesUrls, genericImageText, showArrows }: CarouselProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const { width: windowWidth } = useWindowDimensions();
@@ -98,10 +94,7 @@ export const Carousel = ({
         >
           {imagesUrls.map((image, imageIndex) => {
             return (
-              <View
-                style={[styles.imageContainer, { width: windowWidth }]}
-                key={imageIndex}
-              >
+              <View style={[styles.imageContainer, { width: windowWidth }]} key={imageIndex}>
                 <ImageBackground source={{ uri: image }} style={styles.card}>
                   {genericImageText && (
                     <View style={styles.textContainer}>
@@ -122,10 +115,7 @@ export const Carousel = ({
                   {
                     translateX: scrollX.interpolate(
                       // @ts-expect-error: cant extract ExtrapolateType
-                      createTranslateXInterpolation(
-                        imagesUrls.length || 0,
-                        windowWidth
-                      )
+                      createTranslateXInterpolation(imagesUrls.length || 0, windowWidth)
                     ),
                   },
                 ],
@@ -156,10 +146,7 @@ export const Carousel = ({
               return (
                 <AnimatedTouchableOpacity
                   key={imageIndex}
-                  style={[
-                    styles.normalDot,
-                    { backgroundColor, transform: [{ scale }] },
-                  ]}
+                  style={[styles.normalDot, { backgroundColor, transform: [{ scale }] }]}
                   onPress={() => setCurrentActiveIndex(imageIndex)}
                 />
               );

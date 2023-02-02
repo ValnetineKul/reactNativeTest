@@ -26,12 +26,7 @@ export const Button = ({
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <TouchableOpacity
-      style={[
-        styles.button,
-        styles[color],
-        { ...(fullWidth && styles.fullWidth) },
-        style,
-      ]}
+      style={[styles.button, styles[color], { ...(fullWidth && styles.fullWidth) }, style]}
       onPress={onPress}
       disabled={disabled}
     >
