@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input tests renders input correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "borderColor": "#8F8F8F",
+        "borderRadius": 4,
+        "borderWidth": 1,
+        "position": "relative",
+        "width": "100%",
+      },
+      {},
+      undefined,
+    ]
+  }
+>
+  <TextInput
+    editable={true}
+    keyboardType="default"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder=""
+    secureTextEntry={false}
+    selectTextOnFocus={true}
+    style={
+      [
+        {
+          "height": 34,
+          "paddingLeft": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;

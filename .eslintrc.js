@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["@react-native-community", "plugin:storybook/recommended"],
+  extends: ["@react-native-community", "plugin:storybook/recommended", "plugin:storybook/recommended"],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   overrides: [{
