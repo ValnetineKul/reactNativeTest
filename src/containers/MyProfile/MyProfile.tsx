@@ -112,8 +112,9 @@ export const MyProfile = ({ navigation }: MyProfileStackProps<"myProfile/profile
 
   return (
     <ScrollView
-      keyboardShouldPersistTaps="always"
       refreshControl={<RefreshControl refreshing={isAccountLoading} onRefresh={getAccountData} />}
+      contentContainerStyle={[styles.myProfileContainer]}
+      keyboardShouldPersistTaps="always"
     >
       <View style={[styles.myProfileContainer]}>
         <Formik
