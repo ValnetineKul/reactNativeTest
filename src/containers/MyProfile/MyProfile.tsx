@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { useCallback, useEffect, useMemo } from "react";
-import { Image, RefreshControl } from "react-native";
+import { Image, RefreshControl, View } from "react-native";
 import { styles } from "./MyProfile.styles";
 import { MyProfileFields, formHelper, validationSchema } from "./MyProfile.helper";
 import { Input, ApiCallAnimatedButton, Loader, Button } from "../../components";
@@ -114,104 +114,105 @@ export const MyProfile = ({ navigation }: MyProfileStackProps<"myProfile/profile
     <ScrollView
       keyboardShouldPersistTaps="always"
       refreshControl={<RefreshControl refreshing={isAccountLoading} onRefresh={getAccountData} />}
-      contentContainerStyle={[styles.myProfileContainer]}
     >
-      <Formik
-        initialValues={formikData}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          handleSubmitForm(values);
-        }}
-      >
-        {({
-          handleChange,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-          dirty,
-          touched,
-          setFieldTouched,
-          resetForm,
-        }) => {
-          return (
-            <>
-              <Input
-                label={formHelper[0].label}
-                onChange={handleChange(formHelper[0].id)}
-                value={values[formHelper[0].id]}
-                error={touched[formHelper[0].id] ? errors[formHelper[0].id] : undefined}
-                type={formHelper[0].type}
-                onBlur={() => setFieldTouched(formHelper[0].id)}
-                style={[styles.inputMargin]}
-              />
-              <Input
-                label={formHelper[1].label}
-                onChange={handleChange(formHelper[1].id)}
-                value={values[formHelper[1].id]}
-                error={touched[formHelper[1].id] ? errors[formHelper[1].id] : undefined}
-                type={formHelper[1].type}
-                onBlur={() => setFieldTouched(formHelper[0].id)}
-              />
-              <TouchableOpacity style={[styles.profileImage]} onPress={handleAccountImageChange}>
-                <Image
-                  style={{ height: 120, width: 120, borderRadius: 60 }}
-                  source={account?.imageUri ? { uri: account?.imageUri } : images.noProfileImage}
+      <View style={[styles.myProfileContainer]}>
+        <Formik
+          initialValues={formikData}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            handleSubmitForm(values);
+          }}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+            dirty,
+            touched,
+            setFieldTouched,
+            resetForm,
+          }) => {
+            return (
+              <>
+                <Input
+                  label={formHelper[0].label}
+                  onChange={handleChange(formHelper[0].id)}
+                  value={values[formHelper[0].id]}
+                  error={touched[formHelper[0].id] ? errors[formHelper[0].id] : undefined}
+                  type={formHelper[0].type}
+                  onBlur={() => setFieldTouched(formHelper[0].id)}
+                  style={[styles.inputMargin]}
                 />
-              </TouchableOpacity>
-              {formHelper.map(({ id, label, type }, index) => {
-                if (index < 2) {
-                  return null;
-                }
-                return (
-                  <Input
-                    key={id}
-                    style={index < formHelper.length - 1 ? styles.inputMargin : undefined}
-                    label={label}
-                    onChange={handleChange(id)}
-                    value={values[id]}
-                    error={touched[id] ? errors[id] : undefined}
-                    type={type}
-                    onBlur={() => setFieldTouched(id)}
+                <Input
+                  label={formHelper[1].label}
+                  onChange={handleChange(formHelper[1].id)}
+                  value={values[formHelper[1].id]}
+                  error={touched[formHelper[1].id] ? errors[formHelper[1].id] : undefined}
+                  type={formHelper[1].type}
+                  onBlur={() => setFieldTouched(formHelper[0].id)}
+                />
+                <TouchableOpacity style={[styles.profileImage]} onPress={handleAccountImageChange}>
+                  <Image
+                    style={{ height: 120, width: 120, borderRadius: 60 }}
+                    source={account?.imageUri ? { uri: account?.imageUri } : images.noProfileImage}
                   />
-                );
-              })}
-              <ApiCallAnimatedButton
-                onPress={() => {
-                  if (isUpdateError) {
-                    resetUpdateRequestStatus();
-                    return;
+                </TouchableOpacity>
+                {formHelper.map(({ id, label, type }, index) => {
+                  if (index < 2) {
+                    return null;
                   }
-                  handleSubmit();
-                }}
-                title="UPDATE"
-                fullWidth
-                style={[styles.inputMargin, styles.updateButton, { opacity: Number(dirty) }]}
-                disabled={
-                  (!isValid && dirty) ||
-                  !dirty ||
-                  requestStatuses?.[URLNames.updateAccount].status === RequestStatus.REQUEST
-                }
-                status={requestStatuses?.[URLNames.updateAccount].status}
-                onSuccess={() => {
-                  setTimeout(() => {
-                    resetForm({ values });
-                  }, 1000);
-                  setTimeout(() => {
-                    resetUpdateRequestStatus();
-                  }, 3000);
-                }}
-                onFail={() => {
-                  setTimeout(() => {
-                    resetUpdateRequestStatus();
-                  }, 2000);
-                }}
-              />
-              <Button title="LOGOUT" fullWidth onPress={handleLogout} />
-            </>
-          );
-        }}
-      </Formik>
+                  return (
+                    <Input
+                      key={id}
+                      style={index < formHelper.length - 1 ? styles.inputMargin : undefined}
+                      label={label}
+                      onChange={handleChange(id)}
+                      value={values[id]}
+                      error={touched[id] ? errors[id] : undefined}
+                      type={type}
+                      onBlur={() => setFieldTouched(id)}
+                    />
+                  );
+                })}
+                <ApiCallAnimatedButton
+                  onPress={() => {
+                    if (isUpdateError) {
+                      resetUpdateRequestStatus();
+                      return;
+                    }
+                    handleSubmit();
+                  }}
+                  title="UPDATE"
+                  fullWidth
+                  style={[styles.inputMargin, styles.updateButton, { opacity: Number(dirty) }]}
+                  disabled={
+                    (!isValid && dirty) ||
+                    !dirty ||
+                    requestStatuses?.[URLNames.updateAccount].status === RequestStatus.REQUEST
+                  }
+                  status={requestStatuses?.[URLNames.updateAccount].status}
+                  onSuccess={() => {
+                    setTimeout(() => {
+                      resetForm({ values });
+                    }, 1000);
+                    setTimeout(() => {
+                      resetUpdateRequestStatus();
+                    }, 3000);
+                  }}
+                  onFail={() => {
+                    setTimeout(() => {
+                      resetUpdateRequestStatus();
+                    }, 2000);
+                  }}
+                />
+                <Button title="LOGOUT" fullWidth onPress={handleLogout} />
+              </>
+            );
+          }}
+        </Formik>
+      </View>
     </ScrollView>
   );
 };
