@@ -21,9 +21,7 @@ const App = () => {
     <NavigationContainer>
       <RequestStatusContextProvider>
         <AuthProvider>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Layout />
-          </TouchableWithoutFeedback>
+          <Layout />
         </AuthProvider>
       </RequestStatusContextProvider>
     </NavigationContainer>

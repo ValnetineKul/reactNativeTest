@@ -62,6 +62,7 @@ export const ProductDetails = ({ navigation, route }: MainStackProps<"main/produ
   return (
     <>
       <ScrollView
+        keyboardShouldPersistTaps="always"
         refreshControl={<RefreshControl refreshing={isLoading} onRefresh={getProductDetails} />}
         contentContainerStyle={{ flexGrow: 1 }}
       >
