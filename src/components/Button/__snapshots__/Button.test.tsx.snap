@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button tests renders correctly when there are no items 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "backgroundColor": "#00A8F3",
+      "borderRadius": 4,
+      "height": 40,
+      "opacity": 1,
+      "padding": 12,
+      "shadowColor": "#000000",
+      "shadowOffset": {
+        "height": 4,
+        "width": 2,
+      },
+      "shadowOpacity": 0.3,
+      "width": 125,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "fontFamily": "Roboto",
+          },
+          {
+            "fontSize": 15,
+            "fontWeight": "400",
+            "lineHeight": 20,
+          },
+          {
+            "color": "#FFFFFF",
+          },
+          {
+            "fontWeight": "500",
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      Hello world
+    </Text>
+  </View>
+</View>
+`;

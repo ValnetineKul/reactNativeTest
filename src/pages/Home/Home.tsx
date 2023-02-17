@@ -9,7 +9,7 @@ const Drawer = createDrawerNavigator();
 export const Home = () => {
   return (
     <Drawer.Navigator
-      drawerContent={() => <DrawerMenu />}
+      drawerContent={(args) => <DrawerMenu {...args} />}
       initialRouteName={routes.productsMain}
       screenOptions={{
         headerShown: false,

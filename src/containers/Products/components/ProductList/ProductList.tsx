@@ -14,15 +14,20 @@ type ProductListProps = {
   isLoading: boolean;
 };
 
+export const dataTestProductsId = "products";
+export const dataTestProductCardId = "productCard";
+
 export const ProductList = ({ products, onProductClick, getProducts, isLoading }: ProductListProps) => {
   return (
     <FlatList
+      keyboardShouldPersistTaps="always"
+      testID={dataTestProductsId}
       data={products}
       contentContainerStyle={[styles.bottomPadding]}
       renderItem={(product) => {
         const { attributes, images, id } = product.item;
         return (
-          <TouchableOpacity onPress={() => onProductClick(id)}>
+          <TouchableOpacity onPress={() => onProductClick(id)} testID={dataTestProductCardId}>
             <ProductCard
               key={id}
               style={[styles.productCard]}

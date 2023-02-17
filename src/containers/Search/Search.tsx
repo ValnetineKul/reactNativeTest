@@ -148,6 +148,7 @@ export const Search = () => {
         </View>
       )}
       <FlatList
+        keyboardShouldPersistTaps="always"
         data={searchedProducts}
         renderItem={(product) => {
           const { attributes, id, images } = product.item;

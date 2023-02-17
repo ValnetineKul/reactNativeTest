@@ -8,17 +8,34 @@
  * @format
  */
 
-import React from "react";
+import React, { ReactElement, useRef } from "react";
 
 import { Layout } from "./src/containers";
 import { AuthProvider } from "./src/context";
 import { RequestStatusContextProvider } from "./src/context/RequestStatusContext";
-import { NavigationContainer } from "@react-navigation/native";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import { Nullable } from "./src/types";
 
 const App = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<Nullable<any>>(null);
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef?.getCurrentRoute?.()?.name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef?.getCurrentRoute?.()?.name;
+        if (previousRouteName !== currentRouteName) {
+          // Save the current route name for later comparison
+          routeNameRef.current = currentRouteName;
+          
+          console.log(currentRouteName);
+        }
+      }}
+    >
       <RequestStatusContextProvider>
         <AuthProvider>
           <Layout />

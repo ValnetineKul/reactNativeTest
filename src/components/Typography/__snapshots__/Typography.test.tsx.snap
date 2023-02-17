@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography tests renders correctly 1`] = `
+<Text
+  style={
+    [
+      {
+        "fontFamily": "Roboto",
+      },
+      {
+        "fontSize": 15,
+        "fontWeight": "400",
+        "lineHeight": 20,
+      },
+      {
+        "color": "#4A4A4A",
+      },
+      undefined,
+    ]
+  }
+>
+  Hello world
+</Text>
+`;
