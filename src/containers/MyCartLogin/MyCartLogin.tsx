@@ -15,6 +15,7 @@ export const MyCartLoginContainer = ({
 }: MyCartLoginContainerProps) => {
   return (
     <ScrollView
+      keyboardShouldPersistTaps="always"
       contentContainerStyle={[styles.myCartContainer, route.params?.style]}
     >
       <MyCartLogin navigation={navigation} />

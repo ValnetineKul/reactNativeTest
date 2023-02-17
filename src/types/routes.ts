@@ -1,4 +1,5 @@
-import { CompositeScreenProps } from "@react-navigation/native";
+import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { ViewStyle } from "react-native";
 
@@ -6,7 +7,7 @@ export type MainStackParamList = {
   "main/products": undefined;
   "main/search": undefined;
   "main/drawer": undefined;
-  "main/product": { productId?: string } | undefined;
+  "main/product": { productId?: string };
   chooseColor: undefined;
   loginRequired: undefined;
   productAdded: undefined;
@@ -18,6 +19,11 @@ export type MainStackParamList = {
         actionButtonText?: string;
       }
     | undefined;
+  logout:
+    | {
+        onLogoutPress?: () => void;
+      }
+    | undefined;
   "auth/login": undefined;
   "auth/signUp": undefined;
   "auth/forgotPassword": undefined;
@@ -25,6 +31,12 @@ export type MainStackParamList = {
 
 export type MyProfileStackParamList = {
   "myProfile/profile": undefined;
+  loginRequired: undefined;
+  logout:
+    | {
+        onLogoutPress?: () => void;
+      }
+    | undefined;
 };
 
 export type MyWishListStackParamList = {
@@ -52,23 +64,33 @@ export type MyOrdersStackParamList = {
     | undefined;
 };
 
+export type AllStacks = MainStackParamList & MyProfileStackParamList;
+
 export type RootDrawerParamList = {
-  main: undefined;
-  myProfile: undefined;
-  myWishlist: undefined;
-  myCart: undefined;
-  myOrders: undefined;
+  main: NavigatorScreenParams<MainStackParamList>;
+  myProfile: NavigatorScreenParams<MyProfileStackParamList>;
+  myWishlist: NavigatorScreenParams<MyWishListStackParamList>;
+  myCart: NavigatorScreenParams<MyCartStackParamList>;
+  myOrders: NavigatorScreenParams<MyOrdersStackParamList>;
 };
 
-export type RootDrawerScreenProps<T extends keyof RootDrawerParamList> =
-  DrawerScreenProps<RootDrawerParamList, T>;
+export type RootDrawerScreenProps<T extends keyof RootDrawerParamList> = DrawerScreenProps<
+  RootDrawerParamList,
+  T
+>;
 
-export type ProductsProps<T extends keyof MainStackParamList> = CompositeScreenProps<
-  DrawerScreenProps<MainStackParamList, T>,
+export type MainStackProps<T extends keyof MainStackParamList> = CompositeScreenProps<
+  StackScreenProps<MainStackParamList, T>,
   RootDrawerScreenProps<keyof RootDrawerParamList>
 >;
 
-export type ProductProps<T extends keyof MainStackParamList> = CompositeScreenProps<
-  DrawerScreenProps<MainStackParamList, T>,
-  RootDrawerScreenProps<keyof RootDrawerParamList>
+export type MyProfileStackProps<T extends keyof MyProfileStackParamList> = CompositeScreenProps<
+  StackScreenProps<MyProfileStackParamList, T>,
+  DrawerScreenProps<RootDrawerParamList>
 >;
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootDrawerParamList {}
+  }
+}

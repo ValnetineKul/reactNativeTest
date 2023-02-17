@@ -2,30 +2,18 @@ import React from "react";
 import { View } from "react-native";
 import { Button, Modal, Typography } from "../../../../components";
 import { WarningIcon } from "../../../../theme/icons/components";
-import { NavigationProp } from "../../../../types";
 import { styles } from "../ModalCommon.styles";
-import { RouteProp } from "@react-navigation/native";
+import { MainStackProps } from "../../../../types/routes";
 
-export type TryAgainModalProps = {
-  route?: RouteProp<{
-    params?: {
-      actionButtonText?: string;
-      errorMessage?: string;
-      onTryAgainPress?: () => void;
-    };
-  }>;
-} & NavigationProp;
-
-export const TryAgainModal = (props: TryAgainModalProps) => {
+export const LogoutModal = (props: MainStackProps<"logout">) => {
   const { navigation, route } = props;
   const handleTryAgainPress = () => {
-    navigation?.goBack();
-    route?.params?.onTryAgainPress?.();
+    route?.params?.onLogoutPress?.();
   };
   return (
     <Modal icon={<WarningIcon />} title="Something went wrong" {...props}>
       <Typography color="gray" style={[styles.subtitle]}>
-        {route?.params?.errorMessage}
+        Are you sure you want to logout?
       </Typography>
       <View style={[styles.actionButton, styles.flexDirectionRowProvider]}>
         <Button
@@ -34,7 +22,7 @@ export const TryAgainModal = (props: TryAgainModalProps) => {
           title="CANCEL"
           color="red"
         />
-        <Button onPress={handleTryAgainPress} title={route?.params?.actionButtonText || "TRY AGAIN"} />
+        <Button onPress={handleTryAgainPress} title="LOGOUT" />
       </View>
     </Modal>
   );

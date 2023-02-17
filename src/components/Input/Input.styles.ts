@@ -17,9 +17,17 @@ export const styles = StyleSheet.create({
     paddingLeft: 40,
   },
   startAdorment: {
+    zIndex: 10,
     position: "absolute",
     left: 10,
     top: 6,
+  },
+  loader: {
+    // zIndex: 10,
+    // position: "absolute",
+    // right: "50%",
+    // top: 18,
+    // backgroundColor: "red",
   },
   labelContainer: {
     position: "absolute",

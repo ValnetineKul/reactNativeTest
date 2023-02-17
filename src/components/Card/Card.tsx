@@ -6,16 +6,11 @@ import { CardVariants } from "./Card.types";
 type CardProps = {
   variant?: CardVariants;
   color?: string;
-  style?: ViewStyle | ViewStyle[];
+  style?: ViewStyle[];
   shadowBox?: boolean;
 };
 
-export const Card = ({
-  variant = "default",
-  children,
-  shadowBox,
-  style,
-}: PropsWithChildren<CardProps>) => {
+export const Card = ({ variant = "default", children, shadowBox, style }: PropsWithChildren<CardProps>) => {
   return (
     <View
       style={[

@@ -1,6 +1,6 @@
 import { camelCase, isArray, isObject, snakeCase, transform } from "lodash";
 // @ts-ignore
-export const camelize = (obj): Record<unknown, unknown> | unknown[] =>
+export const camelize = <T>(obj): Record<unknown, unknown> | unknown[] | T =>
   transform(obj, (acc, value, key, target) => {
     const camelKey = isArray(target) ? key : camelCase(key.toString());
     // @ts-expect-error: bs error

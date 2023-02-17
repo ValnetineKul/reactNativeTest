@@ -11,6 +11,7 @@ module.exports = {
         "no-shadow": "off",
         "no-undef": "off",
         quotes: [2, "double", "avoid-escape"],
+        "max-len": ["error", { code: 110 }],
       },
     },
   ],

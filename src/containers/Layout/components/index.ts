@@ -6,3 +6,4 @@ export * from "./LoginModal";
 export * from "./SignUpModal";
 export * from "./ForgotPasswordModal";
 export * from "./TryAgainModal";
+export * from "./LogoutModal";

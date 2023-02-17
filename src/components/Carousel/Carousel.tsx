@@ -66,6 +66,7 @@ export const Carousel = ({
       )}
       <View style={[styles.scrollContainer]}>
         <ScrollView
+          keyboardShouldPersistTaps="always"
           horizontal={true}
           pagingEnabled
           showsHorizontalScrollIndicator={false}

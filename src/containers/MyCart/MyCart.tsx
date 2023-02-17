@@ -14,7 +14,7 @@ const tempProductCount = 0;
 
 export const MyCart = ({ style, navigation }: MyCartProps) => {
   return (
-    <ScrollView contentContainerStyle={[styles.myCartContainer, style]}>
+    <ScrollView keyboardShouldPersistTaps="always" contentContainerStyle={[styles.myCartContainer, style]}>
       {tempProductCount ? (
         <Typography>Products</Typography>
       ) : (

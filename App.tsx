@@ -14,6 +14,7 @@ import { Layout } from "./src/containers";
 import { AuthProvider } from "./src/context";
 import { RequestStatusContextProvider } from "./src/context/RequestStatusContext";
 import { NavigationContainer } from "@react-navigation/native";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 
 const App = () => {
   return (
