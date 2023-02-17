@@ -65,7 +65,7 @@ export const Loader = ({ fullScreen, color = "white", style }: LoaderProps) => {
           }),
         ]),
       ])
-    ).start();
+    );
   }, [bounceAnimation]);
 
   const rotateInterpolateRanges = {

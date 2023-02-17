@@ -45,10 +45,6 @@ export const Products = ({ navigation }: MainStackProps<"main/products">) => {
     getProducts();
   }, []);
 
-  if (isLoading) {
-    return <Loader fullScreen />;
-  }
-
   return (
     <>
       <Card variant="horizontalFull" style={[styles.inputContainer]}>

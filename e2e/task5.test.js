@@ -13,18 +13,8 @@ describe('Example', () => {
     const productDetailsScreen = await element(by.id('productDetails'));
 
     await expect(productsListScreen).toBeVisible();
-    await device.disableSynchronization();
     await productCardsArray.atIndex(0).tap();
-    await sleep(1000);
     await expect(productDetailsScreen).toBeVisible();
   });
 });
 
-
-function sleep (ms) {
-  return new Promise((res) => {
-    setTimeout(() => {
-      res();
-    }, ms);
-  });
-}
